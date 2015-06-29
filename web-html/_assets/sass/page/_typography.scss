@@ -1,0 +1,101 @@
+/**
+ * typography.scss
+ * This file is part of the Olli Web Page
+ * Copyright (c) 2015 Oliver Jean Eifler
+ *
+ * @version 0.0.1
+ * @link http://www.oliver-eifler.de/
+ * @author Oliver Jean Eifler <oliver.eifler@gmx.de>
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
+ **/
+@mixin fontSize($size){
+  //font-size: ($size)*1px;
+  font-size: px2em($size);
+ }
+@mixin inuit-font-size($inuit-font-size, $inuit-line-height: auto) {
+    font-size: $inuit-font-size;
+    font-size: ($inuit-font-size / $inuit-base-font-size) * 1rem;
+
+    @if $inuit-line-height == auto {
+        line-height: ceil($inuit-font-size / $inuit-base-line-height) * ($inuit-base-line-height / $inuit-font-size);
+    }
+
+    @else {
+
+        @if (type-of($inuit-line-height) == number or $inuit-line-height == inherit or $inuit-line-height == normal) {
+            line-height: $inuit-line-height;
+        }
+
+        @elseif ($inuit-line-height != none and $inuit-line-height != false) {
+            @warn "D’oh! ‘#{$inuit-line-height}’ is not a valid value for `line-height`."
+        }
+
+    }
+
+}
+@mixin typo($font-size,$margin:true) {
+  font-size: px2em($font-size);
+  line-height: ceil($font-size / $base-line-height) * ($base-line-height / $font-size);
+  @if $margin == true {
+      margin-top: px2em($base-line-height,$font-size);
+  }
+}
+
+//Remove all margins
+* {
+  margin:0;
+}
+//top margin for block-level elements
+p,div,hr,pre,form,fieldset,.p, {
+    margin-top:px2em($base-line-height);
+  }
+*:first-child,.no-gap {
+  margin-top:0;
+}
+
+//line-height:24 48 72
+//base-size:16
+/*
+    font-size: base-size*2.5 : 40px;
+    line-height: 48px/40px;
+
+    font-size: base-size*2 : 32px;
+    line-height: 48px/32px;
+
+
+
+*/
+
+h1,.h1 {
+    @include typo($base-font-size*2.5);
+}
+
+h2,.h2 {
+    @include typo($base-font-size*2);
+}
+
+h3,.h3 {
+    @include typo($base-font-size*1.5);
+}
+
+h4,h5,h6,.h4,.h5,.h6 {;
+    @include typo($base-font-size);
+    text-transform: uppercase
+}
+  button,
+  input,
+  optgroup,
+  select,
+  textarea {
+    @include typo($base-font-size,false);
+  }
+
+.text-center {
+  text-align:center;
+}
+.text-right {
+  text-align:right;
+}
+.text-left {
+  text-align:left;
+}

@@ -1,0 +1,70 @@
+/**
+ * header.scss
+ * This file is part of the Olli Web Page
+ * Copyright (c) 2015 Oliver Jean Eifler
+ *
+ * @version 0.0.1
+ * @link http://www.oliver-eifler.de/
+ * @author Oliver Jean Eifler <oliver.eifler@gmx.de>
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
+ **/
+$colors: getColors($brand);
+.headerContainer {
+  background:base($colors);
+  color:extra($colors);
+
+  font-size:1em;
+  line-height:1;
+  padding:px2em($border);
+}
+
+.header {
+  display: flex;
+//  flex-wrap: wrap;
+  align-items: flex-end;
+  border-bottom: 1px solid;
+  padding: 0 .5em;
+
+  background:base($colors);
+  color:extra($colors);
+
+  text-align: center;
+}
+.header-logoWrapper {
+  @include inline-block(bottom);
+  flex:1 1 auto;
+}
+
+.header-logo {
+  width:100%;
+  max-width: px2em(320);
+  display:block;
+}
+.header-title {
+  @include inline-block(bottom);
+  flex:0 1 auto;
+  font-size:1em;
+  font-weight:bold;
+  margin:0;
+  padding:0 0 1px 0;
+}
+
+@include media('<small') {
+  .header-logo {
+    margin:0 auto;
+  }
+  .header, .header-logoWrapper,.header-title {
+    display:block;
+  }
+}
+@include media('>=normal') {
+  .header-title {
+    font-size:1.5em;
+  }
+}
+@include media('>=large') {
+  .header-title {
+    font-size:2em;
+  }
+}
+

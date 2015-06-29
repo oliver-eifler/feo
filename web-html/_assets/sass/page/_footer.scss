@@ -1,0 +1,23 @@
+/**
+ * footer.scss
+ * This file is part of the Olli Web Page
+ * Copyright (c) 2015 Oliver Jean Eifler
+ *
+ * @version 0.0.1
+ * @link http://www.oliver-eifler.de/
+ * @author Oliver Jean Eifler <oliver.eifler@gmx.de>
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
+ **/
+$colors: getColors($brand);
+.footerContainer {
+  background:base($colors);
+  font-size:1em;
+  line-height:1;
+  padding:px2em($border);
+  box-shadow: 0 -3px 3px #000;
+
+  
+}
+.footerWrapper {
+  color:text($colors);
+}

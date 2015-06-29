@@ -1,0 +1,146 @@
+/**
+ * menu.scss
+ * This file is part of the Olli Web Page
+ * Copyright (c) 2015 Oliver Jean Eifler
+ *
+ * @version 0.0.1
+ * @link http://www.oliver-eifler.de/
+ * @author Oliver Jean Eifler <oliver.eifler@gmx.de>
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
+ **/
+$colors: getColors($brand);
+.menuContainer {
+  background:base($colors);
+  color:extra($colors);
+
+  font-size:1em;
+  line-height:1;
+  padding: px2em($border);
+  box-shadow: 0 3px 3px #000;
+}
+.headerContainer + .menuContainer {
+  padding-top:0;
+}
+
+.menuWrapper {
+  background:base($colors);
+  color:extra($colors);
+}
+/*hamburger*/
+.menuWrapper {
+  input[type=checkbox] {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  label {
+    cursor: pointer;
+    user-select:none;
+    display:none;
+    text-align:right;
+    color: hilight($colors);
+    font-weight:bold;
+    border:1px solid transparent;
+    padding:.5em;
+  }
+}
+
+.menu,.menu-item {
+    list-style:none;
+    padding:0;
+    margin:0;
+    text-align:center;
+}
+.menu {
+  display: flex;
+  width:100%;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-center;
+  margin:0;
+}
+.menu-item a {
+  @include inline-block;
+  border:1px solid;
+  border-radius:px2em($border);
+  color:hilight($colors);
+  padding:.5em;
+  margin:1px -1px -1px 1px;
+  position:relative;
+  left:-1px;
+  top:-1px;
+  &:visited,&:focus {
+  color:hilight($colors);
+  }
+  &:hover {
+    color:hilight($colors);
+    background:darken(base($colors),10%);
+  }
+}
+
+.menu-item {
+  @include inline-block;
+  text-align:center;
+}
+.menu-item + .menu-item {
+  padding-left:1em;
+}
+
+@include media('<small') {
+  .menu-item,.menu-item-grow {
+    display:block;
+  }
+  .menu-item {
+    padding: 0 .5em .25em .5em;
+  }
+  .menu-item + .menu-item {
+    padding-left:.5em;
+  }
+.menu-item a {
+  display:block;
+  &:visited,&:focus {
+  color:hilight($colors);
+  }
+  &:hover {
+    color:hilight($colors);
+    background:base($colors);
+  }
+}
+  .menuWrapper {
+    background:darken(base($colors),10%);
+    border-radius:.25em;
+    overflow:hidden;
+    ul {
+      display:none;
+      padding-bottom:.25em;
+    }
+    label {
+      display:block;
+    }
+    /*
+    input[type=checkbox]:focus ~ label {
+      outline: 1px dotted hilight($colors);
+      outline-offset: -6px;
+    }
+    */
+    input[type=checkbox]:checked ~ label {
+        color:extra($colors);
+    }
+
+    input[type=checkbox]:checked ~ ul {
+      display:block;
+    }
+  }
+}
+@include media('>=small') {
+  .menu {
+    flex-direction: row;
+  }
+  .menu-item {
+    flex:0 0 auto;
+  }
+
+  .menu-item-grow {
+    flex:1 0 auto;
+  }
+}

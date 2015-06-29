@@ -1,0 +1,54 @@
+/**
+ * config.scss
+ * This file is part of the Olli Web Page
+ * Copyright (c) 2015 Oliver Jean Eifler
+ *
+ * @version 0.0.1
+ * @link http://www.oliver-eifler.de/
+ * @author Oliver Jean Eifler <oliver.eifler@gmx.de>
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
+ **/
+
+ /* Compass & mixin & config*/
+@import "compass";
+@import "compass/support";
+$debug-browser-support: true;
+$browser-minimum-versions: (
+  ie: '7'
+);
+
+
+@import 'olli/functions';
+@import 'olli/colors';
+@import 'olli/theme';
+@import 'components/include-media';
+
+$base-font-size: 16;
+$base-line-height: $base-font-size*1.5;
+$base-hgap:  $base-font-size;
+$base-vgap:  $base-line-height;
+$border:     4;
+
+$screen-width:1920;
+$page-width:1280;
+$side-width:240;
+$breakpoints: ('small': px2em(640)
+              ,'normal': px2em(800)
+              ,'large':  px2em(1024)
+              /* page-module*/
+              ,'page-2col':px2em(($side-width + 2*$base-hgap) + (800 + 2*$base-hgap))
+              ,'page-3col':px2em(2*($side-width + 2*$base-hgap) + (800 + 2*$base-hgap))
+              ,'page-max':px2em(4*($side-width + 2*$base-hgap) + (800 + 2*$base-hgap))
+              );
+//colors
+$default-color:            #fafaff;
+$primary-color:            #2455c3;//mui-color('blue', '500') !default;
+$primary-color-dark:       darken($primary-color,15%);//mui-color('blue', '500') !default;
+
+$accent-color:             mui-color('pink', 'A400') !default;
+$accent-color-dark:        mui-color('pink', 'A700') !default;//mui-color('blue', '500') !default;
+$danger-color:             mui-color('red', 'A700') !default;
+
+$brand:         #116611;
+$hover-color:            $brand !default;
+$hover-color-dark:       darken($hover-color,15%);//mui-color('blue', '500') !default;

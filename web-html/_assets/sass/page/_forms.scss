@@ -1,0 +1,152 @@
+/**
+ * forms.scss
+ * This file is part of the Olli Web Page
+ * Copyright (c) 2015 Oliver Jean Eifler
+ *
+ * @version 0.0.1
+ * @link http://www.oliver-eifler.de/
+ * @author Oliver Jean Eifler <oliver.eifler@gmx.de>
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
+ **/
+
+$form-color:  $content-color;
+$form-width:  $content-width;
+
+$colors: getColors($form-color);
+$active-color: $primary-color;
+
+$label-font-size:$base-font-size*.75;
+$label-height: $base-line-height;//$label-font-size*1.4;
+.form {
+  padding: px2em($base-line-height/2) px2em($base-hgap/2);
+  width:100%;
+  background: base($colors);
+  border-radius: px2em($base-hgap/4);
+  @include card(1);
+}
+.form-buttons {
+  padding: 0 px2em($base-hgap/2);
+}
+
+.form-group {
+  display:block;
+  position: relative;
+
+  padding: px2em($label-height) px2em($base-hgap/2) px2em($base-line-height - $label-height) px2em($base-hgap/2);
+  border:none;
+  background: base($colors);
+
+  & > label {
+    color: info($colors);
+    transition: color .3s linear;
+
+    display:block;
+    position:absolute;
+    top:0;
+    left: px2em($base-hgap/2,$label-font-size);
+    z-index:1;
+    width:100%;
+    font-size: px2em($label-font-size);
+    line-height: ($label-height/$label-font-size);
+    text-transform: uppercase;
+    padding-left:0;
+  }
+  & > * {
+    cursor:pointer;
+  }
+}
+
+.form-control {
+  display:block;
+  width:100%;
+  position: relative;
+  z-index:2;
+  background:none;
+  padding:0 4px;
+  border-bottom:1px solid divider($colors);
+  margin-bottom:-1px;
+  border-right:1px solid divider($colors);
+  margin-right:-1px;
+  color: text($colors);
+  transition: color .3s linear,border-color .3s linear;
+  resize:none;
+  /*Placeholders*/
+  &::-webkit-input-placeholder {
+    color: divider($colors);
+    opacity: 1;
+  }
+  &:-moz-placeholder { /* Firefox 18- */
+    color: divider($colors);
+    opacity: 1;
+  }
+  &::-moz-placeholder {  /* Firefox 19+ */
+    color: divider($colors);
+    opacity: 1;
+  }
+  &:-ms-input-placeholder {
+    color: divider($colors);
+    opacity: 1;
+  }
+  &:focus::-webkit-input-placeholder {
+    color: base($colors);
+    opacity: 1;
+  }
+  &:focus:-moz-placeholder { /* Firefox 18- */
+    color: base($colors);
+    opacity: 1;
+  }
+  &:focus::-moz-placeholder {  /* Firefox 19+ */
+    color: base($colors);
+    opacity: 1;
+  }
+  &:focus:-ms-input-placeholder {
+    color: base($colors);
+    opacity: 1;
+  }
+}
+.form-control:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px base($colors) inset;
+    -webkit-text-fill-color: text($colors) !important;
+}
+textarea.form-control {
+  height:px2em(5*$base-line-height+1);
+  background-image: linear-gradient(to top, divider($colors) 1px, transparent 1px);
+  background-size: 0 px2em($base-line-height);
+  background-repeat: repeat-y;
+  &:focus {
+    background-size: 100% px2em($base-line-height);
+  }
+
+}
+
+.form-control:focus {
+  color:hilight($colors);
+  border-color: $active-color;
+  cursor: text;
+  & + label {
+    cursor: text;
+    color:  $active-color;
+  }
+}
+.form-control:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px base($colors) inset;
+    -webkit-text-fill-color: hilight($colors) !important;
+}
+
+/*
+.form-control:invalid + label {
+    font-size: px2em($base-font-size);
+    top:  px2em($label-height,$base-font-size);
+    left: px2em($base-hgap/2,$base-font-size);
+    padding-left:4px;
+}
+*/
+@media (min-width: $bp-normal){
+  .form-row {
+    display:table;
+    width:100%;
+    & > * {
+      display: table-cell;
+    }
+  }
+}

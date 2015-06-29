@@ -1,0 +1,29 @@
+{
+  "classPrefix": "",
+  "options": [
+    "addTest",
+    "atRule",
+    "domPrefixes",
+    "fnBind",
+    "hasEvent",
+    "mq",
+    "prefixed",
+    "prefixes",
+    "prefixedCSS",
+    "testAllProps",
+    "testProp",
+    "testStyles"
+  ],
+  "feature-detects": [
+    "css/flexbox",
+    "css/flexboxlegacy",
+    "css/flexboxtweener",
+    "css/flexwrap",
+    "svg/inline",
+    "canvas",
+    "queryselector",
+    "es5/array",
+    "json",
+    "history"
+  ]
+}

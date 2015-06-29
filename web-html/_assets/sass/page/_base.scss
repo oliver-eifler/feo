@@ -1,0 +1,83 @@
+/**
+ * defaults.scss
+ * This file is part of the Olli Web Page
+ * Copyright (c) 2015 Oliver Jean Eifler
+ *
+ * @version 0.0.1
+ * @link http://www.oliver-eifler.de/
+ * @author Oliver Jean Eifler <oliver.eifler@gmx.de>
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
+ **/
+
+ /* base styles of html elements */
+/* Advanced Checkbox Hack */
+body { -webkit-animation: bugfix infinite 1s; }
+@-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
+
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
+    &:focus {
+      outline: 1px dotted;
+      outline-offset: 4px;
+    }
+
+}
+
+a {
+  color:$primary-color;
+  text-decoration:none;
+  padding:4px;
+  margin:-4px;
+  border-radius:4px;
+  //transition: color .25s linear;
+  &:visited,&:focus {
+    color:$primary-color;
+  }
+  &:hover {
+    color:$primary-color;
+    background:rgba($primary-color,.10);
+  }
+  & > svg {
+    width:1em;
+    height:1em;
+  }
+}
+
+a[visited] {
+  color:$primary-color-dark;
+  &:visited,&:focus,&:hover {
+    color:$primary-color-dark;
+  }
+  &:hover {
+    color:$hover-color-dark;
+  }
+}
+
+img {
+  max-width:100%;
+}
+//Components styles
+.text-left {
+  text-align:left;
+}
+.text-right {
+  text-align:right;
+}
+.text-center {
+  text-align:center;
+}
+.text-justify {
+  text-align:justify;
+}
+.clearfix {
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+  zoom: 1; /* ie 6/7 */
+}

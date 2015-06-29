@@ -1,0 +1,90 @@
+/**
+ * styles.scss
+ * This file is part of the Olli Web Page
+ * Copyright (c) 2015 Oliver Jean Eifler
+ *
+ * @version 0.0.1
+ * @link http://www.oliver-eifler.de/
+ * @author Oliver Jean Eifler <oliver.eifler@gmx.de>
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
+ **/
+  *, *:before, *:after {  box-sizing: border-box;box-shadow:none;border:none}
+html,body {
+  margin:0;
+  padding:0;
+  border:0;
+  height:100%;
+  width:100%;
+  background:$brand;
+  position:relative;
+}
+html {
+  font-size: 62.5%; //16pixel
+}
+
+body {
+  font-family: sans-serif;
+  font-size: px2em($base-font-size,10);
+  line-height: ($base-line-height/$base-font-size);
+  color:contrast($brand);
+  display:flex;
+  flex-direction: column;
+  //min-height: 100%; /* 1 */
+  & > * {
+    position:relative;
+  }
+}
+.module {
+  max-width: px2em($page-width);
+  margin: 0 auto;
+}
+.headerContainer,.menuContainer,.footerContainer {
+    flex: 0 0 auto;
+}
+.pageContainer {
+    flex: 1 0 auto;
+}
+.footerContainer,.headerContainer {
+  z-index:1000;
+}
+.menuContainer {
+  z-index:1100;
+}
+
+
+@include media('>=page-2col') {
+    .flex .module--page {
+     //max-width:savemapget($breakpoints,'page-3col');
+    }
+    .flex .pageWrapper {
+      display:flex;
+      flex-wrap: wrap;
+      flex-direction:row;
+    }
+    .flex .pageWrapper-content{
+      flex:1 0 auto;
+    }
+    .flex .pageWrapper-nav {
+      flex:1 0 px2em($side-width+2*$base-hgap);
+    }
+    .flex .pageWrapper-aside {
+      flex: 1 0 100%;
+    }
+
+}
+@include media('>=page-3col') {
+    .flex .module--page {
+     max-width:savemapget($breakpoints,'page-max');
+    }
+    .flex .pageWrapper-aside {
+      flex:1 0 px2em($side-width+2*$base-hgap);
+    }
+
+}
+
+
+
+
+
+
+

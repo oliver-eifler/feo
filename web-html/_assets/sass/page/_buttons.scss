@@ -1,0 +1,161 @@
+/**
+ * buttons.scss
+ * This file is part of the Olli Web Page
+ * Copyright (c) 2015 Oliver Jean Eifler
+ *
+ * @version 0.0.1
+ * @link http://www.oliver-eifler.de/
+ * @author Oliver Jean Eifler <oliver.eifler@gmx.de>
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
+ **/
+ @mixin button-size($height) {
+
+  //font-size: px2em($base-font-size);
+  $h: ceil($height / $base-line-height) * ($base-line-height / $height);
+  $m: ((ceil($height/ $base-line-height)*$base-line-height)-$height)/2;
+  line-height: px2em($height);
+  height: px2em($height);
+  margin-top: px2em($m);
+  margin-bottom: px2em($m);
+  padding: 0 px2em($height)/2;
+  & > svg {
+    margin-right:.5em;
+    width:1.5em;
+    height: 100%;
+    vertical-align:top;
+  }
+}
+@mixin button-color($color) {
+    background: $color;
+    color: contrast($color);
+    &:visited {
+      background: $color;
+      color: contrast($color);
+    }
+
+    &:hover,&:active {
+      background: darken($color,10%);
+      color: contrast($color);
+    }
+    &:visited:focus,&:hover:focus,&:active:focus,&:hover,&:focus {
+      text-decoration:none;
+    }
+    & > svg {
+        fill: contrast($color);
+    }
+
+}
+@mixin button-flat-color($color) {
+    background: none;
+    color: $color;
+    &:visited,&:active {
+      background: none;
+      color: $color;
+    }
+
+    &:hover,&:active {
+      $c: darken($default-color,10%);
+      color: $color;
+      background:$c;
+    }
+    & > svg {
+        fill: $color;
+    }
+}
+
+.btn {
+    position:relative;
+    overflow:hidden;
+    @include button-size(2*$base-font-size);
+    @include button-color($primary-color);
+    @include inline-block(middle,center);
+    touch-action: manipulation;
+    user-select: none;
+
+    text-transform: uppercase;
+    white-space: nowrap;
+    letter-spacing: px2em(4);
+    border-radius: .25em;
+
+    & + & {
+      margin-left:.5em;
+    }
+
+    &:active {
+      left:1px;
+      top:1px;
+    }
+    //ripple effect
+    &:before {
+        content: "";
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        display: block;
+        width: 0;
+        padding-top: 0;
+
+        border-radius: 100%;
+
+        background-color: rgba($default-color,.3);
+        transform: translate(-50%, -50%);
+    }
+
+  &:active:before {
+    width: 120%;
+    padding-top: 120%;
+    transition: width .2s ease-out, padding-top .2s ease-out;
+  }
+
+}
+.btn-large {
+    @include button-size(4* $base-font-size);
+}
+
+/* button colors */
+.btn-default {
+  @include button-color($default-color);
+  font-weight:bold;
+}
+/*
+.btn-primary {
+  @include button-color($primary-color);
+}
+*/
+.btn-danger {
+  @include button-color($danger-color);
+}
+.btn-accent {
+  @include button-color($accent-color);
+}
+.btn-flat {
+  @include button-flat-color($primary-color);
+    &.btn-default {
+        @include button-flat-color(contrast($default-color));
+        font-weight:bold;
+    }
+    /*
+    &.btn-primary {
+        @include button-flat-color($primary-color);
+    }
+    */
+    &.btn-danger {
+        @include button-flat-color($danger-color);
+    }
+    &.btn-accent {
+        @include button-flat-color($accent-color);
+    }
+}
+.btn-raised {
+    @include card(1);
+    &:active {
+      @include card(0);
+    }
+
+    &:hover {
+      @include card(2);
+    }
+
+}

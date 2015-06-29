@@ -1,0 +1,71 @@
+/**
+ * main.scss
+ * This file is part of the Olli Web Page
+ * Copyright (c) 2015 Oliver Jean Eifler
+ *
+ * @version 0.0.1
+ * @link http://www.oliver-eifler.de/
+ * @author Oliver Jean Eifler <oliver.eifler@gmx.de>
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
+ **/
+@mixin typo($font-size,$margin:true) {
+  font-size: px2em($font-size);
+  line-height: ceil($font-size / $base-line-height) * ($base-line-height / $font-size);
+  @if $margin == true {
+      margin-top: px2em($base-line-height,$font-size);
+  }
+}
+
+$colors: getColors($default-color);
+.mainContainer {
+  background-color:base($colors);
+  /*
+  background-image: url("/img/bg1.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
+  */
+  color:text($colors);
+  font-size:px2em($base-font-size);
+  line-height:$base-line-height/$base-font-size;
+}
+.mainWrapper {
+  padding: px2em(2*$base-vgap) px2em($base-hgap);
+  border:1px solid #f00;
+}
+.typo {
+  * {margin:0};
+//top margin for block-level elements
+  p,div,hr,pre,form,fieldset,.p, {
+    margin-top:px2em($base-line-height);
+  }
+  *:first-child,.no-gap {
+    margin-top:0;
+  }
+  h1,.h1 {
+    @include typo($base-font-size*2.5);
+  }
+  h2,.h2 {
+    @include typo($base-font-size*2);
+  }
+  h3,.h3 {
+    @include typo($base-font-size*1.5);
+  }
+  h4,h5,h6,.h4,.h5,.h6 {;
+    @include typo($base-font-size);
+    text-transform: uppercase
+  }
+  button,
+  input,
+  optgroup,
+  select,
+  textarea {
+    @include typo($base-font-size,false);
+  }
+}
+
+.content {
+  max-width:savemapget($breakpoints,'normal');
+  margin:0 auto;
+}
