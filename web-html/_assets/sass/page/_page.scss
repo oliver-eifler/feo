@@ -33,15 +33,15 @@ $colors: getColors($default-color);
 }
 .pageWrapper {
     padding: px2em(2*$base-vgap) 0;
-    & > * + * {
-      margin-top: px2em($base-line-height)
+
+    & > * {
+      margin-bottom: px2em($base-line-height)
     }
     /*
     min-height:100%;
     background:rgba(base($colors),.92);
     */
 }
-
 .pageNav
 ,.pageContent
 ,.pageAside {
@@ -49,9 +49,13 @@ $colors: getColors($default-color);
     margin:0 auto;
     padding: 0 px2em($base-hgap);
 }
-.pageWrapper-aside {
-  padding-top: px2em($base-vgap);
+.pageHeader {
+  max-width:px2em($page-width);
+  margin:0 auto;
+  padding: 0 px2em($base-hgap);
+  text-align:center;
 }
+
 .pageAside {
   color: info($colors);
   li + li {
@@ -67,6 +71,9 @@ $colors: getColors($default-color);
     .flex .pageAside {
       max-width:100%;
     }
+    .flex .pageHeader {
+      max-width:none;
+    }
     .flex .pageWrapper-content {
       margin-top:0;
     }
@@ -75,9 +82,6 @@ $colors: getColors($default-color);
 @include media('>page-3col') {
     .flex .pageAside {
       max-width:none;//px2em($side-width);
-    }
-    .flex .pageWrapper-aside {
-      margin-top:0;
     }
 }
 .submenu,.submenu-item {

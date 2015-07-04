@@ -60,6 +60,17 @@ function SiteFooter()
 
   return $html;
 }
+function PageHeader()
+{
+  $html ="";
+  $html.= "<div class='pageWrapper-header'>";
+  $html.= "<div class='typo pageHeader'>";
+  $html.= "<h1>Förderverein „Pro Eisenbahn im Oderbruch“ e.V.</h1>";
+  $html.= "</div>";
+  $html.= "</div>";
+
+  return $html;
+}
 function PageContent()
 {
   $html ="";
@@ -169,6 +180,7 @@ function HTMLBody()
   $html.= "</nav>";
   $html.= "<div class='pageContainer'>";
   $html.=   "<div class='module module--page pageWrapper'>";
+  $html.=     PageHeader();
   $html.=     PageNav();
   $html.=     PageContent();
   $html.=     PageAds();
