@@ -28,9 +28,10 @@ $colors: getColors($brand);
 }
 /*hamburger*/
 .menuWrapper {
+  position:relative;
   input[type=checkbox] {
     position: absolute;
-    top: -9999px;
+    top: 0;
     left: -9999px;
   }
   label {
@@ -111,11 +112,19 @@ $colors: getColors($brand);
     border-radius:.25em;
     overflow:hidden;
     ul {
-      display:none;
+      position:absolute;
+      top:auto;
+      left: -100%;
       padding-bottom:.25em;
     }
     label {
       display:block;
+      &:after {
+        content: "\25bc";
+        font-size:80%;
+        padding-left:.5em;
+      }
+
     }
     /*
     input[type=checkbox]:focus ~ label {
@@ -125,10 +134,13 @@ $colors: getColors($brand);
     */
     input[type=checkbox]:checked ~ label {
         color:extra($colors);
+        &:after {
+          content: "\25b2";
+       }
     }
 
     input[type=checkbox]:checked ~ ul {
-      display:block;
+      position:static;
     }
   }
 }

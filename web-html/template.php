@@ -89,7 +89,11 @@ function PageNav()
   global $faker;
   $html ="";
   $html.= "<nav class='pageWrapper-nav'>";
-  $html.= "<div class='typo pageNav'>";
+
+  $html.= "<div class='pageNav'>";
+  $html.= "<input type='checkbox' id='pagemenu' aria-hidden='true'>";
+  $html.= "<label for='pagemenu'  aria-hidden='true' taborder='0' onclick>Weitere Seiten</label>";
+  $html.= "<script>document.getElementById('pagemenu').checked=false</script>";
   $html.=   "<ul class='submenu'>";
   for ($i=0;$i<10;$i++)
   {
@@ -99,6 +103,7 @@ function PageNav()
   }
   $html.=   "</ul>";
   $html.= "</div>";
+
   $html.= "</nav>";
 
   return $html;
@@ -196,7 +201,9 @@ function HTMLBody()
 function HTML()
 {
   $html = "<!DOCTYPE HTML>";
-  $html.= "<html  lang='de'>";
+  $html.= "<!--[if lte IE 8]><html lang='de' class='no-cbh'><![endif]-->";
+  $html.= "<!--[if gte IE 9]>--><html  lang='de'><!--<![endif]-->";
+   //$html.= "<html  lang='de'>";
   $html.= HTMLHeader();
   $html.= HTMLBody();
   $html.= "</html>";

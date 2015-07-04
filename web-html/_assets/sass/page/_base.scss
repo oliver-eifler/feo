@@ -36,6 +36,7 @@ a {
   }
   &:hover {
     color:$primary-color;
+    background:mix($primary-color,$default-color,10);
     background:rgba($primary-color,.10);
   }
   & > svg {

@@ -12,6 +12,8 @@ init page async
   {
     c.push("ie");
     c.push("ie-"+d.documentMode);
+    if (d.documentMode < 9)
+       c.push("no-cbh");
   }
   else
     c.push("no-ie");

@@ -16,11 +16,14 @@
   }
 }
 $colors: getColors($default-color);
+$xcolors: getColors($brand);
+
 .pageContainer {
   background-color:base($colors);
   color:text($colors);
   font-size:px2em($base-font-size);
   line-height:$base-line-height/$base-font-size;
+
   background:
     linear-gradient(
       rgba(base($colors), 0.9),
@@ -30,6 +33,12 @@ $colors: getColors($default-color);
   background-attachment: fixed;
   background-position: center center;
   background-size: cover;
+  /*
+  background-image:
+  linear-gradient(to top, #888 1px, transparent 1px);
+  background-size: 100% px2em($base-line-height);
+  */
+
 }
 .pageWrapper {
     padding: px2em(2*$base-vgap) 0;
@@ -64,12 +73,81 @@ $colors: getColors($default-color);
 
 }
 
+.submenu,.submenu-item {
+    list-style:none;
+    padding:0;
+    margin:0;
+    display:block;
+    }
+.pageNav {
+    text-align:right;
+    position:relative;
+    input[type=checkbox] {
+      position: absolute;
+      left:-9999px;
+      top:auto;
+    }
+    label {
+      cursor: pointer;
+      user-select:none;
+      color: hilight($colors);
+      font-weight:bold;
+      padding:.75em .5em;
+      color:hilight($xcolors);
+      background:darken(base($xcolors),10%);
+      border-radius:px2em($border);
+      display:inline-block;
+      &:after {
+        content: "\25bc";
+        font-size:80%;
+        padding-left:.5em;
+      }
+   }
+   ul {
+     position:absolute;
+     top:auto;
+     left: -100%;
+  }
+    input[type=checkbox]:checked ~ ul {
+      position:static;
+      padding:0 .5em 0 .5em;
+      border-right:px2em($border) solid darken(base($xcolors),10%);
+    }
+    input[type=checkbox]:checked ~ label {
+      color:extra($xcolors);
+      border-bottom-right-radius: 0;
+      &:after {
+        content: "\25b2";
+     }
+    }
+}
+.no-cbh .pageNav {
+  input,label {
+    display:none;
+  }
+  ul {
+    position:static;
+    display:block;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @include media('>page-2col') {
     .flex .pageNav {
       max-width:none;
-    }
-    .flex .pageAside {
-      max-width:100%;
     }
     .flex .pageHeader {
       max-width:none;
@@ -77,26 +155,17 @@ $colors: getColors($default-color);
     .flex .pageWrapper-content {
       margin-top:0;
     }
+    //remove drop down
+    .flex .pageNav {
+      input, label {
+        display:none;
+      }
+      ul {
+        position:static !important;
+        border: none !important;
+        padding:0 important;
+      }
+    }
 
 }
-@include media('>page-3col') {
-    .flex .pageAside {
-      max-width:none;//px2em($side-width);
-    }
-}
-.submenu,.submenu-item {
-    list-style:none;
-    padding:0;
-    margin:0;
-}
-.submenu-item {
-  @include inline-block;
-  padding: 0 1em;
-  }
-@include media('>=page-2col') {
-.flex .submenu-item {
-  display:block;
-  padding: 0;
-  text-align:right;
-  }
-}
+

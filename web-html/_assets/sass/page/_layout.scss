@@ -76,22 +76,22 @@ body {
     .flex .pageWrapper-content{
       flex:1 0 auto;
     }
-    .flex .pageWrapper-nav {
+    .flex .pageWrapper-nav,.flex .pageWrapper-aside {
       flex:1 0 px2em($side-width+2*$base-hgap);
     }
-    .flex .pageWrapper-header
-    ,.flex .pageWrapper-aside {
+    .flex .pageWrapper-header {
       flex: 1 0 100%;
     }
 
 }
+/*
 @include media('>=page-3col') {
     .flex .pageWrapper-aside {
       flex:1 0 px2em($side-width+2*$base-hgap);
     }
 
 }
-
+*/
 
 
 
