@@ -17,6 +17,8 @@
 }
 
 $colors: getColors($default-color);
+$xcolors: getColors($brand);
+
 .typo {
   * {margin:0};
 //top margin for block-level elements
@@ -51,4 +53,44 @@ $colors: getColors($default-color);
 .content {
   max-width:savemapget($breakpoints,'normal');
   margin:0 auto;
+}
+[am-image]
+ {
+  display:block;
+  max-width: 100%;
+  width: 0.4*(savemapget($breakpoints,'normal')-2*px2em($base-hgap));
+  margin-left: auto;
+  margin-right: auto;
+  overflow:hidden;
+  margin:px2em($base-line-height) auto 0 auto;
+  padding:0;
+  border:.25em solid base($colors);
+  border-radius:.25em;
+  @include card(1);
+
+  & > img {
+    display:block;
+    max-width:100%;
+    margin: 0 auto;
+  }
+}
+a[am-image]{
+  &:hover {
+    @include card(2);
+  }
+}
+
+@include media('>small') {
+  [am-image] {
+    max-width:40%;
+    float: left;
+    margin-right:1em;
+    margin-left:0;
+  }
+  [am-image~=right] {
+    float: right;
+    margin-right:0;
+    margin-left:1em;
+  }
+
 }

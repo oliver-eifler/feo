@@ -12,11 +12,10 @@ $colors: getColors($brand);
 .footerContainer {
   background:base($colors);
   font-size:1em;
-  line-height:1;
   padding:px2em($border);
   box-shadow: 0 -3px 3px #000;
 
-  
+
 }
 .footerWrapper {
   color:text($colors);

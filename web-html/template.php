@@ -125,16 +125,31 @@ function PageAds()
 
   return $html;
 }
-
+function css($path)
+{
+  $file = $path.".css";
+  if ($path=="" || !file_exists($file))
+     return "";
+  $update = filemtime($file);
+  return "<link rel='stylesheet' type='text/css' href='/".$path."_".$update.".css'>";
+}
+function js($path)
+{
+  $file = $path.".js";
+  if ($path=="" || !file_exists($file))
+     return "";
+  $update = filemtime($file);
+  return "<script src='/".$path."_".$update.".js'></script>";
+}
 function PreLoad()
 {
   $html = "";
-  $html.= "<link rel='stylesheet' type='text/css' href='/css/styles.css'>";
+  $html.= css('css/styles');
   /* bootstrap scripts */
-  $html.= "<script src='_assets/js/components/html5shiv.js'></script>";
-  $html.= "<script src='_assets/js/components/webfontloader.js'></script>";
-  $html.= "<script src='_assets/js/components/modernizr-custom.js'></script>";
-  $html.= "<script src='_assets/js/init.js'></script>";
+  $html.= js('_assets/js/components/html5shiv');
+  $html.= js('_assets/js/components/webfontloader');
+  $html.= js('_assets/js/components/modernizr-custom');
+  $html.= js('_assets/js/init');
 
   return $html;
 }
@@ -152,27 +167,34 @@ function HTMLHeader()
   $html.=   "<meta name='format-detection' content='telephone=no'/>";
   $html.=   "<title>F.E.O.</title>";
   $html.=   PreLoad();
+  $html.= Favicons();
   $html.= "</head>";
   return $html;
 }
 function Favicons()
 {
   $html = "";
-  $html.= "<link rel='apple-touch-icon' sizes='57x57' href='/app/apple-touch-icon-57x57.png'>";
-  $html.= "<link rel='apple-touch-icon' sizes='60x60' href='/app/apple-touch-icon-60x60.png'>";
-  $html.= "<link rel='apple-touch-icon' sizes='72x72' href='/app/apple-touch-icon-72x72.png'>";
-  $html.= "<link rel='apple-touch-icon' sizes='76x76' href='/app/apple-touch-icon-76x76.png'>";
-  $html.= "<link rel='apple-touch-icon' sizes='114x114' href='/app/apple-touch-icon-114x114.png'>";
-  $html.= "<link rel='apple-touch-icon' sizes='120x120' href='/app/apple-touch-icon-120x120.png'>";
-  $html.= "<link rel='icon' type='image/png' href='/app/favicon-32x32.png' sizes='32x32'>";
-  $html.= "<link rel='icon' type='image/png' href='/app/favicon-96x96.png' sizes='96x96'>";
-  $html.= "<link rel='icon' type='image/png' href='/app/favicon-16x16.png' sizes='16x16'>";
-  $html.= "<link rel='manifest' href='/app/manifest.json'>";
-  $html.= "<link rel='shortcut icon' href='/app/favicon.ico'>";
-  $html.= "<meta name='msapplication-TileColor' content='#221144'>";
-  $html.= "<meta name='msapplication-config' content='/app/browserconfig.xml'>";
-  $html.= "<meta name='theme-color' content='#221144'>";
-  return $html;
+  $html.= "<link rel='apple-touch-icon' sizes='57x57' href='/fav/apple-touch-icon-57x57.png'>";
+  $html.= "<link rel='apple-touch-icon' sizes='60x60' href='/fav/apple-touch-icon-60x60.png'>";
+  $html.= "<link rel='apple-touch-icon' sizes='72x72' href='/fav/apple-touch-icon-72x72.png'>";
+  $html.= "<link rel='apple-touch-icon' sizes='76x76' href='/fav/apple-touch-icon-76x76.png'>";
+  $html.= "<link rel='apple-touch-icon' sizes='114x114' href='/fav/apple-touch-icon-114x114.png'>";
+  $html.= "<link rel='apple-touch-icon' sizes='120x120' href='/fav/apple-touch-icon-120x120.png'>";
+  $html.= "<link rel='apple-touch-icon' sizes='144x144' href='/fav/apple-touch-icon-144x144.png'>";
+  $html.= "<link rel='apple-touch-icon' sizes='152x152' href='/fav/apple-touch-icon-152x152.png'>";
+  $html.= "<link rel='apple-touch-icon' sizes='180x180' href='/fav/apple-touch-icon-180x180.png'>";
+  $html.= "<link rel='icon' type='image/png' href='/fav/favicon-32x32.png' sizes='32x32'>";
+  $html.= "<link rel='icon' type='image/png' href='/fav/favicon-194x194.png' sizes='194x194'>";
+  $html.= "<link rel='icon' type='image/png' href='/fav/favicon-96x96.png' sizes='96x96'>";
+  $html.= "<link rel='icon' type='image/png' href='/fav/android-chrome-192x192.png' sizes='192x192'>";
+  $html.= "<link rel='icon' type='image/png' href='/fav/favicon-16x16.png' sizes='16x16'>";
+  $html.= "<link rel='manifest' href='/fav/manifest.json'>";
+  $html.= "<link rel='shortcut icon' href='/fav/favicon.ico'>";
+  $html.= "<meta name='msapplication-TileColor' content='#116611'>";
+  $html.= "<meta name='msapplication-TileImage' content='/fav/mstile-144x144.png'>";
+  $html.= "<meta name='msapplication-config' content='/fav/browserconfig.xml'>";
+  $html.= "<meta name='theme-color' content='#116611'>";
+return $html;
 }
 function HTMLBody()
 {

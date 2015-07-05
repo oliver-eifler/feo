@@ -73,12 +73,6 @@ $xcolors: getColors($brand);
 
 }
 
-.submenu,.submenu-item {
-    list-style:none;
-    padding:0;
-    margin:0;
-    display:block;
-    }
 .pageNav {
     text-align:right;
     position:relative;
@@ -103,6 +97,12 @@ $xcolors: getColors($brand);
         padding-left:.5em;
       }
    }
+    ul,li {
+    list-style:none;
+    padding:0;
+    margin:0;
+    display:block;
+    }
    ul {
      position:absolute;
      top:auto;

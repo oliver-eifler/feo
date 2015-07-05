@@ -32,6 +32,15 @@ $border:     4;
 $screen-width:1920;
 $page-width:1280;
 $side-width:240;
+$breakpoints-px: ('small': 640
+              ,'normal': 800
+              ,'large':  1024
+              /* page-module*/
+              ,'page-2col':($side-width + 2*$base-hgap) + (800 + 2*$base-hgap)
+              ,'page-3col':2*($side-width + 2*$base-hgap) + (800 + 2*$base-hgap)
+              ,'page-max': 4*($side-width + 2*$base-hgap) + (800 + 2*$base-hgap)
+              );
+
 $breakpoints: ('small': px2em(640)
               ,'normal': px2em(800)
               ,'large':  px2em(1024)
