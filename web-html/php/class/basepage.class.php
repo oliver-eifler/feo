@@ -7,26 +7,41 @@ require_once("php/config.php");
 
 class BasePage extends _registry
 {
-    protected $error=false;
+    protected $error = false;
     protected $html  ="";
-
-    function __construct(&$data)
+    protected $menu = array();
+    function __construct(&$data,$err = false)
     {
-        $this->error = false;
+        $this->error = $err;
         $this->build = false;
         $this->modified = time();
         foreach ($data as $k => $v)
           $this->offsetSet($k,$v);
-        $this->init();
+        if (!$this->error)
+        {
+          $this->loadMenu();
+          $this->init();
+        }
     }
     //overwrite functions
-    protected function init() {}
-
+    protected function init() {$this->build = true;}
+    //utilitie functions
+    protected function loadMenu() {
+      $cmd = $this->cmd;
+      $json = $cmd["dirname"]."/menu.json";
+      if (file_exists($json))
+      {
+        $this->menu = json_decode(file_get_contents($json));
+        return true;
+      }
+      return false;
+    }
 
 
     //public functions
     public function getError()  {return $this->error;}
     public function getHtml()   {return $this->html;}
+    public function getMenu()   {return $this->menu;}
     public function getData($idx)
     {
         return $this->offsetGet($idx);
@@ -75,8 +90,10 @@ class BasePage extends _registry
     public function debugData()
     {
         $html="<ul>";
+        $html.="<li><b>Error: <span style='color:".($this->error?"red'>ERROR":"green'>O.K")."</span></b></li>";
         foreach($this as $k => $v)
             $html.="<li><b>".$k."</b>: ".htmlentities(print_r($v,true),ENT_QUOTES|ENT_HTML401)."</li>";
+        $html.="<li><b>Menu</b>: ".htmlentities(print_r($this->menu,true),ENT_QUOTES|ENT_HTML401)."</li>";
         foreach ($_SERVER as $name => $value)
         {
            if (substr($name, 0, 5) == 'HTTP_' || substr($name, 0, 6) == 'HTTPS_')

@@ -1,0 +1,31 @@
+<?php
+function get_request_url()
+{
+    return get_request_scheme() . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+}
+
+function get_request_scheme()
+{
+    return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+}
+function remove_ext($path)
+{
+  $parts = pathinfo($path);
+  if (isset($parts['extension']))
+     $path = substr($path,0,strlen($path) - (strlen($parts["extension"]) + 1) );
+  return $path;
+}
+function path2cmd($path,&$cmd)
+{
+    $rc = false;
+    if (file_exists($path)) {
+          $cmd = pathinfo($path);
+          if (!isset($cmd["filename"])) {
+            $cmd["filename"] = substr($cmd["basename"],0,strlen($cmd["basename"]) - (strlen($cmd["extension"]) + 1) );
+          }
+          $cmd["path"] = $path;
+          $rc = true;
+    }
+  return $rc;
+}
+?>

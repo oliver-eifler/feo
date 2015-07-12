@@ -3,128 +3,69 @@ isArticle: true
 title: "Beitragsordnung"
 menuOrder: 200
 ---
-Beitragsordnung
-
-§ 1 Mitglieder
+## § 1 Mitglieder
 
 Der Verein hat folgende Arten von Mitgliedern:
 
-a)  ordentliche Mitglieder
+1. ordentliche Mitglieder
 
-b)  Familienmitglieder
+2. Familienmitglieder
 
-c)  Fördermitglieder
+3. Fördermitglieder
 
-d)  Ehrenmitglieder
+4. Ehrenmitglieder
 
-§ 2 Höhe des Beitrages
+## § 2 Höhe des Beitrages
 
 Der Mitgliedsbeitrag beträgt pro Jahr:
 
-a\) für ordentliche Mitglieder 10,00 EUR/jährlich
+1. für ordentliche Mitglieder 10,00 EUR/jährlich
 
-b\) für Familienmitglieder 5,00 EUR/jährlich
+2. für Familienmitglieder 5,00 EUR/jährlich
 
-c\) für Fördermitglieder 10,00 EUR/jährlich oder mehr
+3. für Fördermitglieder 10,00 EUR/jährlich oder mehr
 
-d\) für Ehrenmitglieder wird kein Beitrag erhoben
+4. für Ehrenmitglieder wird kein Beitrag erhoben
 
-§ 3 Eintritt
+## § 3 Eintritt
 
-Tritt ein ordentliches Mitglied den Förderverein während des laufenden
+Tritt ein ordentliches Mitglied den Förderverein während des laufenden Kalenderjahres bei, beginnt die Pflicht zur Zahlung des Mitgliedsbeitrages
 
-Kalenderjahres bei, beginnt die Pflicht zur Zahlung des
-Mitgliedsbeitrages
+Mit dem 1. des Kalendermonats, der auf den Beitritt folgt. In diesem Fall beträgt der Beitrag für das Jahr, in dem Mitgliedschaft beginnt, 1/ 12 des Jahresbeitrages für jeden Kalendermonat nach Beginn der Mitgliedschaft.
 
-Mit dem 1. des Kalendermonats, der auf den Beitritt folgt. In diesem
-Fall
+Einem ordentlichen Mitglied, welches im Laufe eines Kalendermonats dem Verein beitritt, ist es freigestellt, dennoch den vollen Jahresbeitrag zu zahlen. 
+In diesem Fall ist der über den gemäß obigen Vorschriften verpflichtende Teil als Spende anzusehen.
 
-beträgt der Beitrag für das Jahr, in dem Mitgliedschaft beginnt, 1/ 12
-des
+Für Familien- und Fördermitglieder verbleibt es auch bei einem unterjährigen Beginn der Mitgliedschaft beim vollen Jahresbeitrag.
 
-Jahresbeitrages für jeden Kalendermonat nach Beginn der Mitgliedschaft.
+## § 4 Fälligkeit des Mitgliedbeitrages
 
-Einem ordentlichen Mitglied, welches im Laufe eines Kalendermonats dem
+Der Mitgliedsbeitrag für ordentliche, Familien- und Fördermitglieder ist fällig zum 31. Januar eines jeden Kalenderjahres für das laufende Kalenderjahr.
 
-Verein beitritt, ist es freigestellt, dennoch den vollen Jahresbeitrag
-zu zahlen.
+Beginnt die Mitgliedschaft während eines laufenden Jahres, wird der Mitgliedsbeitrag fällig zum 1. des zweiten Kalendermonats, der auf den Beginn der Mitgliedschaft folgt.
 
-In diesem Fall ist der über den gemäß obigen Vorschriften verpflichtende
-Teil
+## § 5 Ende der Mitgliedschaft
 
-als Spende anzusehen.
+Die Mitgliedschaft von ordentlichen, Familien- und Fördermitgliedern kann mit einer Frist von drei Monaten zum Ende eines Kalenderjahres gekündigt werden.
 
-Für Familien- und Fördermitglieder verbleibt es auch bei einem
-unterjährigen
-
-Beginn der Mitgliedschaft beim vollen Jahresbeitrag.
-
-§ 4 Fälligkeit des Mitgliedbeitrages
-
-Der Mitgliedsbeitrag für ordentliche, Familien- und Fördermitglieder
-
-Ist fällig zum 31. Januar eines jeden Kalenderjahres für das laufende
-
-Kalenderjahr.
-
-Beginnt die Mitgliedschaft während eines laufenden Jahres, wird der
-
-Mitgliedsbeitrag fällig zum 1. des zweiten Kalendermonats, der auf den
-
-Beginn der Mitgliedschaft folgt.
-
-§ 5 Ende der Mitgliedschaft
-
-Die Mitgliedschaft von ordentlichen, Familien- und Fördermitgliedern
-
-Kann mit einer Frist von drei Monaten zum Ende eines Kalenderjahres
-
-gekündigt werden. Im Falle der Beendigung der Mitgliedschaft durch
-
-andere Gründe als die Kündigung bleibt die Verpflichtung zur Zahlung
-
-des vollen Jahresbeitrages bestehen.
+Im Falle der Beendigung der Mitgliedschaft durch andere Gründe als die Kündigung bleibt die Verpflichtung zur Zahlung des vollen Jahresbeitrages bestehen.
 
 Gleiches gilt für die Fälle der außerordentlichen Kündigung.
 
 Ehrenmitglieder können mit sofortiger Wirkung kündigen.
 
-§ 6 Quittung
+## § 6 Quittung
 
-Die Mitglieder haben Anspruch, über die von ihnen gezahlten Beiträge
+Die Mitglieder haben Anspruch, über die von ihnen gezahlten Beiträge eine Quittung zu erhalten.
 
-eine Quittung zu erhalten.
+Solange der Förderverein durch das zuständige Finanzamt als gemeinnützig anerkannt ist, haben die Vereinsmitglieder einen Anspruch, diese Quittung als Spendenquittung zu erhalten.
 
-Solange der Förderverein durch das zuständige Finanzamt als gemeinnützig
-anerkannt ist, haben die Vereinsmitglieder einen Anspruch, diese
-Quittung
+Der Versand oder die persönliche Übergabe der Spendenquittungen erfolgt auf der Jahreshauptversammlung des auf das jeweilige Beitragsjahr folgenden Jahres, spätestens bis zum 28. Februar des auf das Beitragsjahr folgenden Jahres.
 
-als Spendenquittung zu erhalten.
+## § 7 Stimmrecht
 
-Der Versand oder die persönliche Übergabe der Spendenquittungen erfolgt
+Ein Stimmrecht auf den Mitgliederversammlungen steht nur denjenigen ordentlichen Mitgliedern des Vereines zu, die ihren Jahresbeitrag gemäß § 2 dieser Beitragsordnung vollständig bezahlt haben.
 
-auf der Jahreshauptversammlung des auf das jeweilige Beitragsjahr
-folgenden
+Ansonsten ist das Mitglied nur zur nichtstimmberechtigen Teilnahme an der Jahreshauptversammlung berechtigt.
 
-Jahres, spätestens bis zum 28. Februar des auf das Beitragsjahr
-folgenden
-
-Jahres.
-
-§ 7 Stimmrecht
-
-Ein Stimmrecht auf den Mitgliederversammlungen steht nur denjenigen
-
-ordentlichen Mitgliedern des Vereines zu, die ihren Jahresbeitrag gemäß
-
-§ 2 dieser Beitragsordnung vollständig bezahlt haben.
-
-Ansonsten ist das Mitglied nur zur nichtstimmberechtigen Teilnahme an
-
-der Jahreshauptversammlung berechtigt.
-
-Familienmitglieder sind nicht zur Teilnahme an den
-
-Jahreshauptversammlungen berechtigt.
-
-Neuenhagen, den…………..
+Familienmitglieder sind nicht zur Teilnahme an den Jahreshauptversammlungen berechtigt.

@@ -4,17 +4,36 @@
 ?uri + '/index.html'   call_loader(uri,'index.html')
 ?uri + '.html'        call_loader(dirname(uri+'.html'),filename(uri+'.html'))
 :error(uri);
+
+normalized uri /dir[/dir..]/command
+*/
+/* Router TEST */
+
+require_once('php/page.php');
+/*
+$page = Page::getInstance();
+echo $page->debugData();
+echo "<div>".$page->getHTML()."</div>";
+exit();
 */
 require_once('php/faker/autoload.php');
 $faker = Faker\Factory::create();
-  sendHTMLPage();
+sendHTMLPage();
 exit();
+
 function sendHTMLPage()
 {
+  $page = Page::getInstance();
   header("Content-Type: text/html; charset=utf-8");
   header("X-UA-Compatible: IE=edge");
   header("X-Powered-By: Olli PHP Framework");
-  $modified = filemtime('template.php');
+  if ($page->getError())
+  {
+    header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");
+    error_page();
+    exit();
+  }
+  $modified = max($page->getData('modified'),filemtime('template.php'));
   $status = 200;
   //if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $modified)
   //  $status = 304;
@@ -69,10 +88,11 @@ function SiteFooter()
 function PageHeader()
 {
   //$ts = round(microtime(true)*1000);
+  $page = Page::getInstance();
   $html ="";
   $html.= "<div class='pageWrapper-header'>";
   $html.= "<div class='typo pageHeader'>";
-  $html.= "<h1>Förderverein „Pro Eisenbahn im Oderbruch“ e.V.</h1>";
+  $html.= "<h1>".$page->title."</h1>";
   $html.= "</div>";
   $html.= "</div>";
 
@@ -80,11 +100,13 @@ function PageHeader()
 }
 function PageContent()
 {
+  $page = Page::getInstance();
+
   $html ="";
   $html.= "<div class='pageWrapper-content'>";
   $html.=   "<div class='pageContent'>";
   $html.=     "<article class='typo content clearfix'>";
-  $html.=      file_get_contents("pages/verein/index.html");
+  $html.=      $page->getHTML();
   $html.=     "</article>";
   $html.=   "</div>";
   $html.= "</div>";
@@ -93,7 +115,11 @@ function PageContent()
 }
 function PageNav()
 {
-  global $faker;
+  $page = Page::getInstance();
+  $menu = $page->getMenu();
+  if (empty($menu))
+    return "";
+
   $html ="";
   $html.= "<nav class='pageWrapper-nav'>";
 
@@ -102,11 +128,11 @@ function PageNav()
   $html.= "<label for='pagemenu'  aria-hidden='true' taborder='0' onclick>Weitere Seiten</label>";
   $html.= "<script>document.getElementById('pagemenu').checked=false</script>";
   $html.=   "<ul class='submenu'>";
-  for ($i=0;$i<10;$i++)
-  {
-    $text = str_replace(".","",$faker->text(20));
-    $url = '/'.str_replace(" ","_",$text);
-    $html.=     "<li class='submenu-item'><a href='".$url."'>".$text."</a></li>";
+  foreach ($menu as $item) {
+    if ($page->request_cmd != $item->url)
+      $html.= "<li class='submenu-item'><a href='".$item->url."'>".$item->title."</a></li>";
+    else
+      $html.= "<li class='submenu-item'><strong>".$item->title."</strong></li>";
   }
   $html.=   "</ul>";
   $html.= "</div>";
