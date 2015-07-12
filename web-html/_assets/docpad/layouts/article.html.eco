@@ -1,0 +1,2 @@
+<script type="json"><%- @getMetaData() %></script>
+<%- @content %>

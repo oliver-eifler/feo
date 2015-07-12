@@ -1,0 +1,4 @@
+---
+layout:'json'
+---
+<%- @getJSONMenu( @getCollection('html').findAllLive({relativeOutDirPath:@document.relativeOutDirPath,isArticle:true},[{menuOrder:1}]).toJSON() ) %>

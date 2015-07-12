@@ -1,4 +1,10 @@
 <?php
+/*
+?uri + '.php'         call_php(uri+'.php')
+?uri + '/index.html'   call_loader(uri,'index.html')
+?uri + '.html'        call_loader(dirname(uri+'.html'),filename(uri+'.html'))
+:error(uri);
+*/
 require_once('php/faker/autoload.php');
 $faker = Faker\Factory::create();
   sendHTMLPage();
@@ -23,7 +29,7 @@ function SiteHeader()
   $html.=     "<!--[if gte IE 9]><!--><img class='header-logo' width='320' alt='F.E.O.' src='/img/feo.svg' data-fallback='/img/feo-320.png' onerror='this.src=this.getAttribute(\"data-fallback\");this.onerror=null;' /><!--<![endif]-->";
   $html.=     "<!--[if lt IE 9]><img class='header-logo' width='320' alt='F.E.O.' src='/img/feo-320.png' /><![endif]-->";
   $html.=   "</div>";
-  $html.=   "<h1 class='header-title'><small>Förderverein</small><div>„Pro Eisenbahn im Oderbruch“ e.V.</div></h1>";
+  $html.=   "<div class='header-title'><small>Förderverein</small><div>„Pro Eisenbahn im Oderbruch“ e.V.</div></div>";
   $html.=   "</div>";
   return $html;
 }
@@ -62,6 +68,7 @@ function SiteFooter()
 }
 function PageHeader()
 {
+  //$ts = round(microtime(true)*1000);
   $html ="";
   $html.= "<div class='pageWrapper-header'>";
   $html.= "<div class='typo pageHeader'>";
@@ -75,11 +82,11 @@ function PageContent()
 {
   $html ="";
   $html.= "<div class='pageWrapper-content'>";
-  $html.= "<div class='pageContent'>";
-  $html.= "<article class='typo content clearfix'>";
-  $html.= file_get_contents("pages/start.html");
-  $html.= "</article>";
-  $html.= "</div>";
+  $html.=   "<div class='pageContent'>";
+  $html.=     "<article class='typo content clearfix'>";
+  $html.=      file_get_contents("pages/verein/index.html");
+  $html.=     "</article>";
+  $html.=   "</div>";
   $html.= "</div>";
 
   return $html;
@@ -256,6 +263,12 @@ function error_page()
   $html.=  "<!-- IE needs 512+ bytes: http://blogs.msdn.com/b/ieinternals/archive/2010/08/19/http-error-pages-in-internet-explorer.aspx -->";
 
   echo $html;
+}
+function utime(){
+    $utime = preg_match("/^(.*?) (.*?)$/", microtime(), $match);
+    $utime = $match[2] + $match[1];
+    $utime *=  1000000;
+    return $utime;
 }
 /*
 <iframe height='268' scrolling='no' src='//codepen.io/olli/embed/qEKMZm/?height=268&theme-id=0&default-tab=result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='http://codepen.io/olli/pen/qEKMZm/'>Olli's canvas spinner animation</a> by Oliver Jean Eifler  (<a href='http://codepen.io/olli'>@olli</a>) on <a href='http://codepen.io'>CodePen</a>.
