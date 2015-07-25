@@ -1,0 +1,27 @@
+[
+  {
+    "url": "/verein",
+    "title": "Unser Verein",
+    "grow": false
+  },
+  {
+    "url": "/fahrzeuge",
+    "title": "Unsere Fahrzeuge",
+    "grow": false
+  },
+  {
+    "url": "/aktuelles",
+    "title": "Aktuelles",
+    "grow": false
+  },
+  {
+    "url": "/region",
+    "title": "Region",
+    "grow": true
+  },
+  {
+    "url": "/kontakt",
+    "title": "Kontakt",
+    "grow": false
+  }
+]

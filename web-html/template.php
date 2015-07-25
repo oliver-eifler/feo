@@ -10,6 +10,7 @@ normalized uri /dir[/dir..]/command
 /* Router TEST */
 
 require_once('php/page.php');
+require_once('php/mainmenu.php');
 /*
 $page = Page::getInstance();
 echo $page->debugData();
@@ -23,6 +24,7 @@ exit();
 
 function sendHTMLPage()
 {
+  $menu = MainMenu::getInstance();
   $page = Page::getInstance();
   header("Content-Type: text/html; charset=utf-8");
   header("X-UA-Compatible: IE=edge");
@@ -44,9 +46,11 @@ function SiteHeader()
 {
   $html = "";
   $html.= "<div class='module header'>";
-  $html.=   "<div class='header-logoWrapper'>";
-  $html.=     "<!--[if gte IE 9]><!--><img class='header-logo' width='320' alt='F.E.O.' src='/img/feo.svg' data-fallback='/img/feo-320.png' onerror='this.src=this.getAttribute(\"data-fallback\");this.onerror=null;' /><!--<![endif]-->";
-  $html.=     "<!--[if lt IE 9]><img class='header-logo' width='320' alt='F.E.O.' src='/img/feo-320.png' /><![endif]-->";
+  $html.=   "<div class='header-logoWrapper' href='/' title='Startseite'>";
+  $html.=     "<a class='header-logo' href='/' title='Startseite'>";
+  $html.=     "<!--[if gte IE 9]><!--><img width='320' alt='F.E.O.' src='/img/feo.svg' data-fallback='/img/feo-320.png' onerror='this.src=this.getAttribute(\"data-fallback\");this.onerror=null;' /><!--<![endif]-->";
+  $html.=     "<!--[if lt IE 9]><img width='320' alt='F.E.O.' src='/img/feo-320.png' /><![endif]-->";
+  $html.=   "</a>";
   $html.=   "</div>";
   $html.=   "<div class='header-title'><small>Förderverein</small><div>„Pro Eisenbahn im Oderbruch“ e.V.</div></div>";
   $html.=   "</div>";
@@ -54,19 +58,23 @@ function SiteHeader()
 }
 function SiteMenu()
 {
+  $menu = MainMenu::getInstance()->getMenu();
+  $page = Page::getInstance();
+
   $html ="";
   $html.= "<div class='module menuWrapper'>";
 
-  $html.= "<input type='checkbox' id='mainmenu' aria-hidden='true'>";
-  $html.= "<label for='mainmenu'  aria-hidden='true' taborder='0' onclick>Menü</label>";
-  $html.= "<script>document.getElementById('mainmenu').checked=false</script>";
+  $html.= "<input class='switch4sitemenu' type='checkbox' id='sitemenu' aria-hidden='true'>";
+  $html.= "<label class='label4sitemenu' for='sitemenu'  aria-hidden='true' taborder='0' onclick>Menü</label>";
+  $html.= "<script>document.getElementById('sitemenu').checked=false</script>";
 
-  $html.=   "<ul class='menu'>";
-  $html.=     "<li class='menu-item'><a href='/verein'>Unser Verein</a></li>";
-  $html.=     "<li class='menu-item'><a href='/fahrzeuge'>Unsere Fahrzeuge</a></li>";
-  $html.=     "<li class='menu-item'><a href='/aktuell'>Aktuelles</a></li>";
-  $html.=     "<li class='menu-item menu-item-grow text'><a href='/region'>Region</a></li>";
-  $html.=     "<li class='menu-item'><a href='/kontact'>Kontakt</a></li>";
+  $html.=   "<ul class='sitemenu'>";
+  foreach ($menu as $item) {
+      $lic='sitemenu-item';
+      if ($item->grow)
+        $lic.=' sitemenu-item--grow';
+      $html.= "<li class='".$lic."'><a class='sitemenu-button' href='".$item->url."'".($page->isRootPath($item->url)?" am-current":"")." am-ripple><span>".$item->title."</span></a></li>";
+  }
   $html.=   "</ul>";
   $html.= "</div>";
   return $html;
@@ -123,16 +131,13 @@ function PageNav()
   $html ="";
   $html.= "<nav class='pageWrapper-nav'>";
 
-  $html.= "<div class='pageNav'>";
-  $html.= "<input type='checkbox' id='pagemenu' aria-hidden='true'>";
-  $html.= "<label for='pagemenu'  aria-hidden='true' taborder='0' onclick>Weitere Seiten</label>";
+  $html.= "<div class='pageNav no-cbh'>";
+  $html.= "<input class='switch4pagemenu' type='checkbox' id='pagemenu' aria-hidden='true'>";
+  $html.= "<label class='label4pagemenu' for='pagemenu'  aria-hidden='true' taborder='0' onclick>Weitere Seiten</label>";
   $html.= "<script>document.getElementById('pagemenu').checked=false</script>";
-  $html.=   "<ul class='submenu'>";
+  $html.=   "<ul class='pagemenu'>";
   foreach ($menu as $item) {
-    if ($page->request_cmd != $item->url)
-      $html.= "<li class='submenu-item'><a href='".$item->url."'>".$item->title."</a></li>";
-    else
-      $html.= "<li class='submenu-item'><strong>".$item->title."</strong></li>";
+    $html.= "<li class='pagemenu-item'><a class='pagemenu-button' href='".$item->url."'".($page->request_cmd == $item->url?" am-current":"").">".$item->title."</a></li>";
   }
   $html.=   "</ul>";
   $html.= "</div>";
@@ -144,6 +149,8 @@ function PageNav()
 function PageAds()
 {
   global $faker;
+  $page = Page::getInstance();
+
   $html ="";
   $html.= "<aside class='pageWrapper-aside'>";
   $html.= "<div class='typo pageAside'>";
@@ -153,7 +160,9 @@ function PageAds()
     $html.="<li><strong>".$faker->catchPhrase."</strong><br>";
     $html.=$faker->paragraph(1)."</li>";
   }
+
   $html.= "</ul></div>";
+  //$html.="<h3>Debug Data</h3>".$page->debugData();
   $html.= "</aside>";
 
   return $html;
@@ -266,6 +275,8 @@ function HTML()
 }
 function error_page()
 {
+  $menu = MainMenu::getInstance()->getMenu();
+
   $html = "<!DOCTYPE HTML>";
   $html.= "<head>";
   $html.=   "<meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=yes'>";
@@ -282,7 +293,10 @@ function error_page()
   $html.=  "<p>&nbsp;</p>";
   $html.=  "<p>Maybe, you try it here:</p>";
   $html.=   "<ul>";
-  $html.=   getLinkList("main");
+  $html.=   "<li><a href='/'><strong>Start</strong></a><li>";
+  foreach ($menu as $item) {
+      $html.= "<li><a href='".$item->url."'>".$item->title."</a></li>";
+  }
   $html.=   "</ul>";
   $html.= "</body>";
   $html.= "</html>";

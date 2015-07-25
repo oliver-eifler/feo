@@ -8,151 +8,118 @@
  * @author Oliver Jean Eifler <oliver.eifler@gmx.de>
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
  **/
-$colors: getColors($brand);
+$colors: getColors($brand-dark);
+$xcolors: getColors($brand);
+
 .menuContainer {
   background:base($colors);
   color:extra($colors);
 
   font-size:1em;
   line-height:1;
-  padding: px2em($border);
+  padding: 0;
   box-shadow: 0 3px 3px #000;
-}
-.headerContainer + .menuContainer {
-  padding-top:0;
 }
 
 .menuWrapper {
+  position:relative;
+  overflow: hidden;
   background:base($colors);
   color:extra($colors);
 }
 /*hamburger*/
-.menuWrapper {
-  position:relative;
-  input[type=checkbox] {
-    position: absolute;
-    top: 0;
-    left: -9999px;
-  }
-  label {
-    cursor: pointer;
-    user-select:none;
-    display:none;
-    text-align:right;
-    color: hilight($colors);
-    font-weight:bold;
-    border:1px solid transparent;
-    padding:.5em;
-  }
+.switch4sitemenu {
+  position: absolute;
+  top: 0;
+  left: -9999px;
+}
+.label4sitemenu {
+  cursor: pointer;
+  user-select:none;
+  display:none;
+  text-align:right;
+  color:extra($xcolors);
+  padding:1em;
+  font-weight:bold;
 }
 
-.menu,.menu-item {
+.sitemenu,.sitemenu-item {
     list-style:none;
     padding:0;
     margin:0;
     text-align:center;
 }
-.menu {
+.sitemenu {
   display: flex;
   width:100%;
   flex-direction: column;
   flex-wrap: wrap;
   align-items: flex-center;
-  margin:0;
 }
-.menu-item a {
+.sitemenu-button {
   @include inline-block;
-  border:1px solid;
-  border-radius:px2em($border);
-  color:hilight($colors);
-  padding:.5em;
-  margin:1px -1px -1px 1px;
-  position:relative;
-  left:-1px;
-  top:-1px;
+  color:extra($xcolors);
+  padding:1em;
+  font-weight:bold;
   &:visited,&:focus {
-  color:hilight($colors);
+    color:extra($xcolors);
+    outline-offset:-1px;
   }
   &:hover {
-    color:hilight($colors);
-    background:darken(base($colors),10%);
+    color:extra($xcolors);
+    background:mix(extra($xcolors),base($colors),10);
   }
+  &[am-current] {
+    color:hilight($xcolors);
+    background:base($xcolors);
+  }
+
 }
 
-.menu-item {
-  @include inline-block;
-  text-align:center;
-}
-.menu-item + .menu-item {
-  padding-left:1em;
-}
 
 @include media('<small') {
-  .menu-item,.menu-item-grow {
+  .sitemenu-item,.sitemenu-item--grow {
     display:block;
   }
-  .menu-item {
-    padding: 0 .5em .25em .5em;
+  .sitemenu-item {
+    border-top:1px solid mix(extra($xcolors),base($colors),10);
   }
-  .menu-item + .menu-item {
-    padding-left:.5em;
+  .sitemenu-button {
+    margin-top:-1px;
+    display:block;
   }
-.menu-item a {
-  display:block;
-  &:visited,&:focus {
-  color:hilight($colors);
+  .sitemenu {
+    position:absolute;
+    top:auto;
+    left: -100%;
   }
-  &:hover {
-    color:hilight($colors);
-    background:base($colors);
+  .label4sitemenu {
+    display:block;
+    &:after {
+      content: "\25bc";
+      font-size:80%;
+      padding-left:.5em;
+    }
   }
-}
-  .menuWrapper {
-    background:darken(base($colors),10%);
-    border-radius:.25em;
-    overflow:hidden;
-    ul {
-      position:absolute;
-      top:auto;
-      left: -100%;
-      padding-bottom:.25em;
+  .switch4sitemenu:checked ~ .label4sitemenu {
+    color:hilight($xcolors);
+    &:after {
+      content: "\25b2";
     }
-    label {
-      display:block;
-      &:after {
-        content: "\25bc";
-        font-size:80%;
-        padding-left:.5em;
-      }
-
-    }
-    /*
-    input[type=checkbox]:focus ~ label {
-      outline: 1px dotted hilight($colors);
-      outline-offset: -6px;
-    }
-    */
-    input[type=checkbox]:checked ~ label {
-        color:extra($colors);
-        &:after {
-          content: "\25b2";
-       }
-    }
-
-    input[type=checkbox]:checked ~ ul {
-      position:static;
-    }
+  }
+  .switch4sitemenu:checked ~ .sitemenu {
+    position:static;
   }
 }
 @include media('>=small') {
-  .menu {
+  .sitemenu {
     flex-direction: row;
   }
-  .menu-item {
+  .sitemenu-item {
     flex:0 0 auto;
   }
 
-  .menu-item-grow {
+  .sitemenu-item--grow {
     flex:1 0 auto;
   }
 }

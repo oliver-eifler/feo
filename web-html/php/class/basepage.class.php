@@ -105,5 +105,19 @@ class BasePage extends _registry
         $html.="</ul>";
         return $html;
     }
+    public function isRootPath($uri)
+    {
+        $path = $this->request_uri;
+        if ($path == $uri)
+            return true;
+        $parts = explode("/",trim($path,"/"));
+        $path = "";
+        foreach($parts as $part) {
+            $path.="/".$part;
+            if ($path == $uri)
+                return true;
+        }
+        return false;
+    }
 }
 ?>

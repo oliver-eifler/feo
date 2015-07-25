@@ -9,20 +9,20 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
  **/
 $colors: getColors($brand);
+
 .headerContainer {
   background:base($colors);
   color:extra($colors);
 
   font-size:1em;
   line-height:1;
-  padding:px2em($border);
+  padding:px2em(2*$border) px2em($border);
 }
 
 .header {
   display: flex;
 //  flex-wrap: wrap;
   align-items: flex-end;
-  border-bottom: 1px solid;
   padding: 0 .5em;
 
   background:base($colors);
@@ -39,6 +39,16 @@ $colors: getColors($brand);
   width:100%;
   max-width: px2em(320);
   display:block;
+  & > img {
+    display:block;
+    width:100%
+  }
+  margin:0;
+  padding:0;
+  &:hover,&:focus,&:active {
+    background:none;
+  }
+
 }
 .header-title {
   @include inline-block(bottom);

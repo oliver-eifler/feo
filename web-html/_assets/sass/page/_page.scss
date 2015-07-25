@@ -21,10 +21,11 @@ $xcolors: getColors($brand);
 .pageContainer {
   background-color:base($colors);
   color:text($colors);
+
   font-size:px2em($base-font-size);
   line-height:$base-line-height/$base-font-size;
 
-  background:
+  background-image:
     linear-gradient(
       rgba(base($colors), 0.9),
       rgba(base($colors), 0.9)
@@ -74,98 +75,85 @@ $xcolors: getColors($brand);
 }
 
 .pageNav {
-    text-align:right;
-    position:relative;
-    input[type=checkbox] {
-      position: absolute;
-      left:-9999px;
-      top:auto;
-    }
-    label {
-      cursor: pointer;
-      user-select:none;
-      color: hilight($colors);
-      font-weight:bold;
-      padding:.75em .5em;
-      color:hilight($xcolors);
-      background:darken(base($xcolors),10%);
-      border-radius:px2em($border);
-      display:inline-block;
-      &:after {
-        content: "\25bc";
-        font-size:80%;
-        padding-left:.5em;
-      }
-   }
-    ul,li {
-    list-style:none;
-    padding:0;
-    margin:0;
-    display:block;
-    }
-   ul {
-     position:absolute;
-     top:auto;
-     left: -100%;
-  }
-    input[type=checkbox]:checked ~ ul {
-      position:static;
-      padding:0 .5em 0 .5em;
-      border-right:px2em($border) solid darken(base($xcolors),10%);
-    }
-    input[type=checkbox]:checked ~ label {
-      color:extra($xcolors);
-      border-bottom-right-radius: 0;
-      &:after {
-        content: "\25b2";
-     }
-    }
+  text-align:right;
+  position:relative;
 }
-.no-cbh .pageNav {
-  input,label {
+.pagemenu,.pagemenu-item {
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:block;
+}
+.pagemenu {
+  position:absolute;
+  top:auto;
+  left:-9999px;
+}
+.pagemenu-button[am-current] {
+  font-weight:bold;
+  background:none;
+  color:hilight($colors);
+}
+
+.switch4pagemenu {
+  position: absolute;
+  left:-9999px;
+  top:auto;
+}
+.label4pagemenu {
+  cursor: pointer;
+  user-select:none;
+  font-weight:bold;
+  padding:.75em .5em;
+  color:extra($xcolors);
+  background:$brand-dark;
+  border-radius:px2em($border);
+  display:inline-block;
+  &:after {
+    content: "\25bc";
+    font-size:80%;
+    padding-left:.5em;
+  }
+}
+.switch4pagemenu:checked ~ .pagemenu {
+  position:static;
+  padding:0 .5em 0 .5em;
+  border-right:px2em($border) solid $brand-dark;
+}
+.switch4pagemenu:checked ~ .label4pagemenu {
+  color:hilight($xcolors);
+  border-bottom-right-radius: 0;
+  &:after {
+    content: "\25b2";
+  }
+}
+
+.no-cbh {
+  .label4pagemenu {
     display:none;
   }
-  ul {
+  .pagemenu {
     position:static;
-    display:block;
+    border:none;
+    padding:0;
   }
-
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 @include media('>page-2col') {
-    .flex .pageNav {
-      max-width:none;
-    }
-    .flex .pageHeader {
-      max-width:none;
-    }
-    .flex .pageWrapper-content {
-      margin-top:0;
-    }
-    //remove drop down
-    .flex .pageNav {
-      input, label {
-        display:none;
-      }
-      ul {
-        position:static !important;
-        border: none !important;
-        padding:0 important;
-      }
-    }
-
+  .flex .pageNav {
+    max-width:none;
+  }
+  .flex .pageHeader {
+    max-width:none;
+  }
+  //remove drop down
+  .flex .label4pagemenu {
+    display:none;
+  }
+  .flex .pagemenu {
+    position:static;
+    border: none !important;
+    padding:0 !important;
+  }
 }
 

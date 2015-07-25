@@ -1,0 +1,73 @@
+/**
+ * 404.scss - inline-css for error page
+ * This file is part of the Olli Web Page
+ * Copyright (c) 2015 Oliver Jean Eifler
+ *
+ * @version 0.0.1
+ * @link http://www.oliver-eifler.de/
+ * @author Oliver Jean Eifler <oliver.eifler@gmx.de>
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
+ **/
+ @import 'config';
+
+ $content-link: $primary-color;
+
+    * {
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        html {
+            color: #888;
+            display: table;
+            font-family: sans-serif;
+            height: 100%;
+            text-align: center;
+            width: 100%;
+        }
+
+        body {
+            display: table-cell;
+            vertical-align: middle;
+            margin: 2em auto;
+        }
+
+        h1 {
+            color: #500;
+            font-size: 2em;
+            font-weight: 400;
+        }
+
+        p,ul {
+            margin: 0 auto;
+            width: 280px;
+        }
+        ul,li {
+          list-style:none;
+          padding:0;
+          text-align:center;
+        }
+        a {
+          text-decoration: none;
+          color:$content-link;
+          &:visited {
+            color:$content-link;
+         }
+         &:focus,&:hover {
+          color:$content-link;
+          text-decoration: underline
+        }
+      }
+
+        @media only screen and (max-width: 280px) {
+
+            body, p, ul {
+                width: 95%;
+            }
+
+            h1 {
+                font-size: 1.5em;
+                margin: 0 0 0.3em;
+            }
+
+        }

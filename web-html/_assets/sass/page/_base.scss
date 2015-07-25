@@ -27,9 +27,6 @@ body { -webkit-animation: bugfix infinite 1s; }
 a {
   color:$primary-color;
   text-decoration:none;
-  padding:4px;
-  margin:-4px;
-  border-radius:4px;
   //transition: color .25s linear;
   &:visited,&:focus {
     color:$primary-color;
