@@ -25,6 +25,10 @@ $xcolors: getColors($brand);
   p,div,hr,pre,form,fieldset,.p,ul {
     margin-top:px2em($base-line-height);
   }
+  li ul {
+    margin-top:0;
+  }
+
   *:first-child,.no-gap {
     margin-top:0;
   }

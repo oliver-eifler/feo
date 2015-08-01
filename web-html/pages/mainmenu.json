@@ -3,25 +3,30 @@
     "url": "/verein",
     "title": "Unser Verein",
     "grow": false
-  },
-  {
+  }
+  ,{
     "url": "/fahrzeuge",
     "title": "Unsere Fahrzeuge",
     "grow": false
-  },
-  {
-    "url": "/aktuelles",
+  }
+  ,{
+    "url": "/aktuell",
     "title": "Aktuelles",
     "grow": false
-  },
-  {
+  }
+  ,{
     "url": "/region",
     "title": "Region",
     "grow": true
-  },
-  {
+  }
+  ,{
     "url": "/kontakt",
     "title": "Kontakt",
+    "grow": false
+  }
+  ,{
+    "url": "/dynamic",
+    "title": "test",
     "grow": false
   }
 ]

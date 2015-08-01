@@ -27,9 +27,9 @@ class Config extends _registry
 }
 
 $config = Config::getInstance();
-$config->title = "Oliver Jean Eifler";
-$config->tags = array("oliver jean","eifler","web","development","blog");
-$config->desc = "Oliver Jean Eifler's web development blog";
+$config->title = "F.E.O.";
+$config->tags = array("förderverein","eisenbahn","oderbruch","verein");
+$config->desc = "Förderverein Pro Eisenbahn im Oderbruch e.V.";
 $config->authorName     = "Oliver Jean Eifler";
 $config->authorURL      = "http://".$_SERVER["SERVER_NAME"]."/about";
 $config->authorMail     = "olli.eifler@gmail.com";

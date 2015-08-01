@@ -11,6 +11,7 @@ class StaticPage extends BasePage
     {
         $cmd = $this->cmd;
         $file = $cmd["path"];
+
         if (!file_exists($file))
         {
             $this->html="<h2>".$file." not found</h2>";
@@ -24,6 +25,14 @@ class StaticPage extends BasePage
         /*Magic: Extract data*/
         $regex = '%<script.*type=("|\')json("|\').*>(.*)</.*script>%i';
         $h = preg_replace_callback($regex,"self::magic_meta",$h);
+        /*
+        $regex = '%\@\[basedir\]%i';
+        $h = preg_replace($regex,$this->basedir,$h);
+        $regex = '%\@\[staticdir\]%i';
+        $h = preg_replace($regex,"/".$cmd["dirname"],$h);
+        $regex = '%\@\[root\]%i';
+        $h = preg_replace($regex,"/pages",$h);
+        */
         $this->html.=$h;
         return true;
     }

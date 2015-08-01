@@ -74,7 +74,7 @@ body {
       flex-direction:row;
     }
     .flex .pageWrapper-content{
-      flex:1 0 auto;
+      flex:1 0 px2em(savemapget($breakpoints,'normal') + 2*$base-hgap);
     }
     .flex .pageWrapper-nav,.flex .pageWrapper-aside {
       flex:1 0 px2em($side-width+2*$base-hgap);

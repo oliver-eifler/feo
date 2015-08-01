@@ -20,6 +20,7 @@ class BasePage extends _registry
         if (!$this->error)
         {
           $this->loadMenu();
+          $this->loadBackground();
           $this->init();
         }
     }
@@ -36,12 +37,38 @@ class BasePage extends _registry
       }
       return false;
     }
+    protected function loadBackground() {
+      $cmd = $this->cmd;
+      $json = $cmd["dirname"]."/back.jpg";
+      if (file_exists($json)) {
+        $this->background = "/".$cmd["dirname"]."/back.jpg";
+        return true;
+      }
+      return false;
+    }
 
 
     //public functions
     public function getError()  {return $this->error;}
     public function getHtml()   {return $this->html;}
     public function getMenu()   {return $this->menu;}
+    public function getBackground()   {return $this->background;}
+    public function getBackgroundCSS() {
+        if ($this->background === null)
+            return "";
+        $css = ".pageContainer:before {";
+        if ($this->background === false)
+        {
+            $css .="background-image: none;";
+        }
+        else
+        {
+            $css .="background-image: -webkit-linear-gradient(rgba(250, 250, 255, 0.9), rgba(250, 250, 255, 0.9)), url('".$this->background."');";
+            $css .="background-image: linear-gradient(rgba(250, 250, 255, 0.9), rgba(250, 250, 255, 0.9)), url('".$this->background."');";
+        }
+        $css .= "}";
+        return $css;
+    }
     public function getData($idx)
     {
         return $this->offsetGet($idx);
@@ -53,8 +80,8 @@ class BasePage extends _registry
     public function getPreparedTitle()
     {
         $config = Config::getInstance();
-        $title = $this->title;
-        $title .= (!empty($title)? " || ":"").$config->title;
+        $title = (!empty($this->short)?$this->short:$this->title);
+        $title .= (!empty($title)? " | ":"").$config->title;
         return $title;
     }
     public function getPreparedDescription()

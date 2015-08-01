@@ -8,7 +8,6 @@
 normalized uri /dir[/dir..]/command
 */
 /* Router TEST */
-
 require_once('php/page.php');
 require_once('php/mainmenu.php');
 /*
@@ -131,7 +130,7 @@ function PageNav()
   $html ="";
   $html.= "<nav class='pageWrapper-nav'>";
 
-  $html.= "<div class='pageNav no-cbh'>";
+  $html.= "<div class='pageNav'>";
   $html.= "<input class='switch4pagemenu' type='checkbox' id='pagemenu' aria-hidden='true'>";
   $html.= "<label class='label4pagemenu' for='pagemenu'  aria-hidden='true' taborder='0' onclick>Weitere Seiten</label>";
   $html.= "<script>document.getElementById('pagemenu').checked=false</script>";
@@ -162,7 +161,7 @@ function PageAds()
   }
 
   $html.= "</ul></div>";
-  //$html.="<h3>Debug Data</h3>".$page->debugData();
+  $html.="<h3>Debug Data</h3>".$page->debugData();
   $html.= "</aside>";
 
   return $html;
@@ -187,6 +186,9 @@ function PreLoad()
 {
   $html = "";
   $html.= css('css/styles');
+
+  $page = Page::getInstance();
+  $html.= "<style id='dcss' type='text/css'>".$page->getBackgroundCSS()."</style>";
   /* bootstrap scripts */
   $html.= js('_assets/js/components/html5shiv');
   $html.= js('_assets/js/components/webfontloader');
@@ -203,13 +205,26 @@ function PostLoad()
 
 function HTMLHeader()
 {
+  $page = Page::getInstance();
+
+  $title = htmlentities($page->getPreparedTitle(),ENT_QUOTES|ENT_HTML401);
+  $desc = htmlentities($page->getPreparedDescription(),ENT_QUOTES|ENT_HTML401);
+  $tags = htmlentities($page->getPreparedTags(),ENT_QUOTES|ENT_HTML401);
+
   $html = "";
   $html.= "<head>";
+  if ($page->noindex)
+    $html.= "<meta name='robots' content='noindex'>";
   $html.=   "<meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=yes'>";
   $html.=   "<meta name='format-detection' content='telephone=no'/>";
-  $html.=   "<title>F.E.O.</title>";
+  $html.=   "<title>".$title."</title>";
+  $html.=   "<meta name=\"author\" content=\"Oliver Jean Eifler\" />";
+  $html.=   "<meta name=\"description\" content=\"".$desc."\" />";
+  $html.=   "<meta name=\"keywords\" content=\"".$tags."\" />";
   $html.=   PreLoad();
   $html.= Favicons();
+  if ($page->request_uri != $page->request_cmd)
+    $html.="<link rel='canonical' href='".$page->request_cmd."' />";
   $html.= "</head>";
   return $html;
 }
@@ -259,7 +274,11 @@ function HTMLBody()
   $html.=   SiteFooter();
   $html.= "</footer>";
   $html.= "</body>";
-
+  /*
+  $html.= "<script>";
+  $html.="document.getElementById('dcss').innerHTML='.content {color:#ff0}'";
+  $html.= "</script>";
+  */
   return $html;
 }
 function HTML()
@@ -287,7 +306,7 @@ function error_page()
   $html.=  "</style>";
   $html.= "</head>";
   $html.= "<body>";
-  $html.=  "<img src='img/yawn.png' alt=''>";
+  $html.=  "<img src='/img/yawn.png' alt=''>";
   $html.=  "<h1>Page Not Found</h1>";
   $html.=  "<p>Sorry, but the page you were trying to view does not exist.</p>";
   $html.=  "<p>&nbsp;</p>";

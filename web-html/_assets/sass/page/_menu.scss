@@ -49,6 +49,10 @@ $xcolors: getColors($brand);
     margin:0;
     text-align:center;
 }
+.sitemenu-item {
+  @include inline-block;
+}
+
 .sitemenu {
   display: flex;
   width:100%;
@@ -74,6 +78,10 @@ $xcolors: getColors($brand);
     background:base($xcolors);
   }
 
+}
+.no-cbh .sitemenu-item
+,.no-cbh .sitemenu-button {
+    display:block;
 }
 
 

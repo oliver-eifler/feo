@@ -24,7 +24,7 @@ $xcolors: getColors($brand);
 
   font-size:px2em($base-font-size);
   line-height:$base-line-height/$base-font-size;
-
+  /*
   background-image:
     linear-gradient(
       rgba(base($colors), 0.9),
@@ -34,24 +34,45 @@ $xcolors: getColors($brand);
   background-attachment: fixed;
   background-position: center center;
   background-size: cover;
+  */
   /*
   background-image:
   linear-gradient(to top, #888 1px, transparent 1px);
   background-size: 100% px2em($base-line-height);
   */
-
+    overflow:hidden;
+    position:relative;
+}
+.pageContainer:before {
+  content:' ';
+  position:fixed;
+  z-index:1;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  //background-color:base($colors);
+  background-image:
+    linear-gradient(
+      rgba(base($colors), 0.9),
+      rgba(base($colors), 0.9)
+    ),
+    url("/img/bg1.jpg");
+  background-position: center center;
+  background-size: cover;
+  //opacity:.1;
+  will-change: transform; // creates a new paint layer
 }
 .pageWrapper {
     padding: px2em(2*$base-vgap) 0;
+    position:relative;
+    z-index:2;
 
     & > * {
       margin-bottom: px2em($base-line-height)
     }
-    /*
-    min-height:100%;
-    background:rgba(base($colors),.92);
-    */
 }
+
 .pageNav
 ,.pageContent
 ,.pageAside {

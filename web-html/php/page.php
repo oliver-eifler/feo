@@ -29,7 +29,7 @@ class Page {
     /* Normalize Path */
     $path = remove_ext($request_uri);
 
-    if (empty($path) || $path == "/" || $path=="/index") {
+    if (empty($path) || $path == "/" || $path=="/index" || $path=="/home") {
        $path="/start"; //later: do landing Page
     }
     else {
@@ -44,7 +44,6 @@ class Page {
     $dir = 'pages'.$path;
     $cmd = array(); //default to read index.html
     $error = !(path2cmd($dir.'.php',$cmd) || path2cmd($dir.'.html',$cmd) || path2cmd($dir.'/index.php',$cmd) || path2cmd($dir.'/index.html',$cmd));
-
     $data = array(
       "request_url" => $request_url
       ,"request_uri" => $request_uri
@@ -53,6 +52,15 @@ class Page {
     );
     $classname = "StaticPage";
     $classfile = "php/static.php";
+
+    /*check if a *.php page is requested and exists*/
+    $path = $cmd["path"];
+    if (!$error && preg_match("/^(.*)\.(php)$/i",$path)) {
+        $classname = ucfirst($cmd["filename"])."Page";
+        $classfile = $path;
+        $data["modified"] = filemtime($classfile);
+
+    }
 
     require_once($classfile);
     $page = new $classname($data,$error);
