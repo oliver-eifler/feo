@@ -73,18 +73,28 @@
     $_extra: text-contrast($color);
     $_hilight: contrast($color);
     //Black on WHite
-    $_text:    mix($_hilight,$_color,75);
-    $_info:    mix($_hilight,$_color,54);
-    $_disabled:    mix($_hilight,$_color,26);
+    //$_text:    mix($_hilight,$_color,87);
+    //$_info:    mix($_hilight,$_color,54);
+    //$_text:    text-contrast($_color,#FFF,7);
+    //$_info:    text-contrast($_color,#FFF,4.5);
+    $_text:    mix-contrast($_hilight,$_color,7);
+    $_info:    mix-contrast($_hilight,$_color,4.5);
+    $_disabled:    mix($_hilight,$_color,30);
     $_divider:    mix($_hilight,$_color,12);
+    /*
     //@return if(lightness($color) < 51, #FFF, #000)
     @if (lightness($color) < 51) {
-      $_text:    mix($_hilight,$_color,75);
-      $_info:    mix($_hilight,$_color,54);
-      $_disabled:    mix($_hilight,$_color,30);
-      $_divider:    mix($_hilight,$_color,12);
+      //white on black
+      //$_text:    $_hilight;//mix($_hilight,$_color,75);
+      //$_info:    mix($_hilight,$_color,70);
+      //$_text:    text-contrast($_color,#000,7);
+      //$_info:    text-contrast($_color,#000,4.5);
+      $_text:    mix-contrast($_hilight,$_color,7);
+      $_info:    mix-contrast($_hilight,$_color,4.5);
+      $_disabled:    mix($_hilight,$_color,54);
+      $_divider:    mix($_hilight,$_color,26);
     }
-
+    */
   $colors:(
     base: $_color,
     extra: $_extra,
@@ -96,6 +106,17 @@
   );
   @return $colors;
 }
+@mixin setColors($color) {
+    .col-extra {color: extra($color);}
+    .col-hilight {color: hilight($color);}
+    .col-text {color: text($color);}
+    .col-info {color: info($color);}
+    .col-disabled {color: disabled($color);}
+    .col-divider {color: divider($color);}
+}
+
+
+
 @function base($palette) {@return savemapget($palette,'base');}
 @function extra($palette) {@return savemapget($palette,'extra');}
 @function hilight($palette) {@return savemapget($palette,'hilight');}

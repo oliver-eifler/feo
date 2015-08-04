@@ -85,8 +85,14 @@ function SiteFooter()
   $Year = $fromYear . (($fromYear != $thisYear) ? '-' . $thisYear : '');
   $html ="";
   $html.= "<div class='module footerWrapper'>";
-  $html.= "<div class='footer'>";
-  $html.= "Der Footer mit Impressum Link";
+  $html.= "<div class='typo footer'>";
+  $html.= "<p>Der Footer mit Impressum Link</p>";
+
+  $html.= "<div class='olli'>";
+  $html.= "<p>".$_SERVER['SERVER_NAME']." is created and maintained with care<sup>*</sup> by <a href='#'>Olli</a></p>";
+  $html.= "<p class='legende'><small>* Not recommended for or tested with IE &lt; 10 or any other legacy browser</small></p>";
+  $html.= "</div>";
+
   $html.= "</div>";
   $html.= "</div>";
 

@@ -57,6 +57,30 @@
   {
     @return if(lightness($color) < 51, #FFF, #000)
   }
+  @function mix-contrast($hilight,$color,$threshold: 4.5) {
+    //$threshold: 4.5; // 4.5 = WCAG AA,7= WCAG AAA
+    $list: 10 20 30 40 50 60 70 80 90 100;
+    @each $percent in $list {
+      $_color: mix($hilight, $color,$percent);
+      $_ratio: contrast_ratio($color,$_color);
+        @if ($_ratio > $threshold){
+          @return mix-contrast-2($hilight,$color,$threshold,$percent);
+        }
+    }
+    @return if(lightness($color) < 51, #FFF, #000)
+  }
+  @function mix-contrast-2($hilight,$color,$threshold,$per) {
+    //$threshold: 4.5; // 4.5 = WCAG AA,7= WCAG AAA
+    $list: 9 8 7 6 5 4 3 2 1;
+    @each $percent in $list {
+      $_color: mix($hilight, $color,$per - $percent);
+      $_ratio: contrast_ratio($color,$_color);
+        @if ($_ratio > $threshold){
+          @return $_color;
+        }
+    }
+    @return mix($hilight, $color,$per);
+  }
 
 @function scut-strip-unit (
   $num

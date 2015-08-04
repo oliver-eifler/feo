@@ -18,5 +18,29 @@ $colors: getColors($brand);
 
 }
 .footerWrapper {
+  padding: px2em($base-vgap) 0 px2em($border) 0;
   color:text($colors);
+  a {
+    color:extra($colors);
+    &:visited,&:focus {
+      color:extra($colors);
+    }
+    &:hover {
+      color:extra($colors);
+      background:darken(base($colors),10%);
+    }
+    & > svg {
+      width:1em;
+      height:1em;
+    }
+  }
+}
+.olli {
+  .legende {
+    margin:0;
+    padding: 0 1em;
+    border-top:1px solid info($colors);
+    color:info($colors);
+    text-align:right;
+  }
 }
