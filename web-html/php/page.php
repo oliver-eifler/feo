@@ -54,12 +54,13 @@ class Page {
     $classfile = "php/static.php";
 
     /*check if a *.php page is requested and exists*/
-    $path = $cmd["path"];
-    if (!$error && preg_match("/^(.*)\.(php)$/i",$path)) {
-        $classname = ucfirst($cmd["filename"])."Page";
-        $classfile = $path;
-        $data["modified"] = filemtime($classfile);
-
+    if (!$error) {
+      $path = $cmd["path"];
+      if (!$error && preg_match("/^(.*)\.(php)$/i",$path)) {
+          $classname = ucfirst($cmd["filename"])."Page";
+          $classfile = $path;
+          $data["modified"] = filemtime($classfile);
+     }
     }
 
     require_once($classfile);

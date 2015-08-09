@@ -1,0 +1,6 @@
+/* Olli Avatar */
+$olli: #221144;
+$colors: getColors($olli);
+.olli-avatar {
+    fill: extra($colors);
+}

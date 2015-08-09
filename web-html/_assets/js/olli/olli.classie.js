@@ -17,13 +17,47 @@
     lib.extend(factory(lib));
 }(this,olli_name,function (_lib,undefined) {
 var _self = this
-,x = _w.classie;
+'use strict';
 
-    /* for the moment, we use classie as base */
-    var hasClass = function(element,name) {return x.has(element,name);}
-    ,addClass = function(element,name) {x.add(element,name);}
-    ,removeClass = function(element,name) {x.remove(element,name);}
-    ,toggleClass = function(element,name) {x.toggle(element,name);};
+// class helper functions from bonzo https://github.com/ded/bonzo
+
+function classReg( className ) {
+  return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
+}
+
+// classList support for class management
+// altho to be fair, the api sucks because it won't accept multiple classes at once
+var hasClass, addClass, removeClass;
+
+if ( 'classList' in document.documentElement ) {
+  hasClass = function( elem, c ) {
+    return elem.classList.contains( c );
+  };
+  addClass = function( elem, c ) {
+    elem.classList.add( c );
+  };
+  removeClass = function( elem, c ) {
+    elem.classList.remove( c );
+  };
+}
+else {
+  hasClass = function( elem, c ) {
+    return classReg( c ).test( elem.className );
+  };
+  addClass = function( elem, c ) {
+    if ( !hasClass( elem, c ) ) {
+      elem.className = elem.className + ' ' + c;
+    }
+  };
+  removeClass = function( elem, c ) {
+    elem.className = elem.className.replace( classReg( c ), ' ' );
+  };
+}
+
+function toggleClass( elem, c ) {
+  var fn = hasClass( elem, c ) ? removeClass : addClass;
+  fn( elem, c );
+}
 
 var exp = {
     hasClass: hasClass
@@ -33,19 +67,3 @@ var exp = {
 }
 return exp;
 }));
-/*
-(function (root, ns, factory) {
-    var lib = _namespace(root,olli_name);
-    var module = _namespace(olli_name,ns);
-    module.extend(factory(lib,module));
-}(this,"module",function (lib,module,undefined) {
-
-
-//export functions
-var exp = {
-  version:"0.0.1",
-  test: function(){console.log("olli-module");}
-}
-return exp;
-}));
-*/

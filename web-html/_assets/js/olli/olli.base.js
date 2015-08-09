@@ -85,7 +85,6 @@ var _extend = function(target) {
 String.prototype._isBlank = function() {
   return (this.length === 0 || !/[^\s]+/.test(this));
 };
-
 /* Variables */
 var _w = window //window
 ,_root = this

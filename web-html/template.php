@@ -10,16 +10,36 @@ normalized uri /dir[/dir..]/command
 /* Router TEST */
 require_once('php/page.php');
 require_once('php/mainmenu.php');
-/*
-$page = Page::getInstance();
-echo $page->debugData();
-echo "<div>".$page->getHTML()."</div>";
-exit();
-*/
+  if (isset($_GET['json']) || ( isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' ))
+  {
+     sendJSONPage();
+     exit();
+  }
 require_once('php/faker/autoload.php');
 $faker = Faker\Factory::create();
 sendHTMLPage();
 exit();
+function sendJSONPage()
+{
+  $page = Page::getInstance();
+  $error = $page->getError();
+  $json = array();
+  $json['error']    = $error;
+  if (!$error) {
+    $json['title']    = $page->getPreparedTitle();
+    $json['content']  = getPageContent();
+    $json['header']   = getPageHeader();
+    $json['nav']      = getPageNav();
+    $json['css']      = $page->getCSS();
+    $json['menu']     = getSiteMenu();
+  }
+  else {
+    header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");
+  }
+
+  header("Content-type: application/json; charset=utf-8");
+  echo json_encode($json);
+}
 
 function sendHTMLPage()
 {
@@ -57,9 +77,6 @@ function SiteHeader()
 }
 function SiteMenu()
 {
-  $menu = MainMenu::getInstance()->getMenu();
-  $page = Page::getInstance();
-
   $html ="";
   $html.= "<div class='module menuWrapper'>";
 
@@ -67,15 +84,22 @@ function SiteMenu()
   $html.= "<label class='label4sitemenu' for='sitemenu'  aria-hidden='true' taborder='0' onclick>Menü</label>";
   $html.= "<script>document.getElementById('sitemenu').checked=false</script>";
 
-  $html.=   "<ul class='sitemenu'>";
+  $html.=   "<ul id='siteMenu' class='sitemenu'>".getSiteMenu()."</ul>";
+  $html.= "</div>";
+  return $html;
+}
+function getSiteMenu()
+{
+  $menu = MainMenu::getInstance()->getMenu();
+  $page = Page::getInstance();
+
+  $html ="";
   foreach ($menu as $item) {
       $lic='sitemenu-item';
       if ($item->grow)
         $lic.=' sitemenu-item--grow';
       $html.= "<li class='".$lic."'><a class='sitemenu-button' href='".$item->url."'".($page->isRootPath($item->url)?" am-current":"")." am-ripple><span>".$item->title."</span></a></li>";
   }
-  $html.=   "</ul>";
-  $html.= "</div>";
   return $html;
 }
 function SiteFooter()
@@ -86,10 +110,10 @@ function SiteFooter()
   $html ="";
   $html.= "<div class='module footerWrapper'>";
   $html.= "<div class='typo footer'>";
-  $html.= "<p>Der Footer mit Impressum Link</p>";
+  $html.= "<p>Der Footer mit <a href='#'>Impressum Link</a></p>";
 
-  $html.= "<div class='olli'>";
-  $html.= "<p>".$_SERVER['SERVER_NAME']." is created and maintained with care<sup>*</sup> by <a href='#'>Olli</a></p>";
+  $html.= "<div class='olli clearfix'>";
+  $html.= "<p>".$_SERVER['SERVER_NAME']." is created and maintained with care<sup>*</sup> by <svg width='24' height='24' class='olli-avatar'><use xlink:href='#icon-olli'></use></svg><a href='http://www.oliver-eifler.info'>Olli</a></p>";
   $html.= "<p class='legende'><small>* Not recommended for or tested with IE &lt; 10 or any other legacy browser</small></p>";
   $html.= "</div>";
 
@@ -104,10 +128,19 @@ function PageHeader()
   $page = Page::getInstance();
   $html ="";
   $html.= "<div class='pageWrapper-header'>";
-  $html.= "<div class='typo pageHeader'>";
+  $html.= "<div id='pageHeader' class='typo pageHeader'>";
+  $html.= getPageHeader();
+  $html.= "</div>";
+  $html.= "</div>";
+
+  return $html;
+}
+function getPageHeader()
+{
+  //$ts = round(microtime(true)*1000);
+  $page = Page::getInstance();
+  $html ="";
   $html.= "<h1>".$page->title."</h1>";
-  $html.= "</div>";
-  $html.= "</div>";
 
   return $html;
 }
@@ -117,16 +150,39 @@ function PageContent()
 
   $html ="";
   $html.= "<div class='pageWrapper-content'>";
-  $html.=   "<div class='pageContent'>";
-  $html.=     "<article class='typo content clearfix'>";
-  $html.=      $page->getHTML();
-  $html.=     "</article>";
+  $html.=   "<div id='pageContent' class='pageContent'>";
+  $html.=      getPageContent();
   $html.=   "</div>";
   $html.= "</div>";
 
   return $html;
 }
+function getPageContent()
+{
+  $page = Page::getInstance();
+
+  $html ="";
+  $html.=     "<article class='typo content clearfix'>";
+  $html.=      $page->getHTML();
+  $html.=     "</article>";
+  return $html;
+}
 function PageNav()
+{
+  $page = Page::getInstance();
+  $menu = $page->getMenu();
+  $html ="";
+  $html.= "<nav class='pageWrapper-nav'>";
+
+  $html.= "<div id='pageNav' class='pageNav'>";
+  $html.= getPageNav();
+  $html.= "</div>";
+
+  $html.= "</nav>";
+
+  return $html;
+}
+function getPageNav()
 {
   $page = Page::getInstance();
   $menu = $page->getMenu();
@@ -134,9 +190,6 @@ function PageNav()
     return "";
 
   $html ="";
-  $html.= "<nav class='pageWrapper-nav'>";
-
-  $html.= "<div class='pageNav'>";
   $html.= "<input class='switch4pagemenu' type='checkbox' id='pagemenu' aria-hidden='true'>";
   $html.= "<label class='label4pagemenu' for='pagemenu'  aria-hidden='true' taborder='0' onclick>Weitere Seiten</label>";
   $html.= "<script>document.getElementById('pagemenu').checked=false</script>";
@@ -145,10 +198,6 @@ function PageNav()
     $html.= "<li class='pagemenu-item'><a class='pagemenu-button' href='".$item->url."'".($page->request_cmd == $item->url?" am-current":"").">".$item->title."</a></li>";
   }
   $html.=   "</ul>";
-  $html.= "</div>";
-
-  $html.= "</nav>";
-
   return $html;
 }
 function PageAds()
@@ -194,7 +243,6 @@ function PreLoad()
   $html.= css('css/styles');
 
   $page = Page::getInstance();
-  $html.= "<style id='dcss' type='text/css'>".$page->getBackgroundCSS()."</style>";
   /* bootstrap scripts */
   $html.= js('_assets/js/components/html5shiv');
   $html.= js('_assets/js/components/webfontloader');
@@ -261,7 +309,10 @@ return $html;
 }
 function HTMLBody()
 {
+  $page = Page::getInstance();
+
   $html = "<body>";
+  $html.= "<div id='pageCSS'>".$page->getCSS()."</div>";
   $html.= "<header class='headerContainer'>";
   $html.=   SiteHeader();
   $html.= "</header>";
@@ -280,11 +331,18 @@ function HTMLBody()
   $html.=   SiteFooter();
   $html.= "</footer>";
   $html.= "</body>";
-  /*
-  $html.= "<script>";
-  $html.="document.getElementById('dcss').innerHTML='.content {color:#ff0}'";
-  $html.= "</script>";
-  */
+
+  $html.= js('_assets/js/olli/olli.base');
+  $html.= js('_assets/js/olli/olli.lib');
+  $html.= js('_assets/js/olli/olli.polyfills');
+  $html.= js('_assets/js/olli/olli.events');
+  $html.= js('_assets/js/olli/olli.docready');
+  $html.= js('_assets/js/olli/olli.classie');
+  $html.= js('_assets/js/olli/olli.ajax');
+  $html.= js('_assets/js/olli/olli.svgload');
+
+  $html.= js('_assets/js/app');
+
   return $html;
 }
 function HTML()

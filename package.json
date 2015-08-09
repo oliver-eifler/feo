@@ -1,7 +1,7 @@
 {
   "name": "feo",
   "version": "0.0.1",
-  "description": "Förderverein Pro Eisenbahn im Oderbruch e.V.",
+  "description": "Fï¿½rderverein Pro Eisenbahn im Oderbruch e.V.",
   "main": "gruntfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -34,7 +34,7 @@
     "grunt-preprocess": "~3.0.1",
     "grunt-sass": "^0.14.1",
     "grunt-svg2png": "^0.2.5",
-    "grunt-svgstore": "^0.3.3",
+    "grunt-svgstore": "^0.5.0",
     "grunt-webfont": "^0.4.8",
     "underscore.string": "^3.0.3"
   },

@@ -11,11 +11,12 @@ var _self = this
     ,support = {localStorage:testLocalStorage()}
     ,vp = {width:0,minWidth:0}
     ,resize_ticking = false;
-
+    /*
     var breakpoint = {};
     breakpoint.refreshValue = function () {
        this.value = window.getComputedStyle(_body, ':before').getPropertyValue('content').replace(/\"/g, '');
     };
+    */
 
 
 
@@ -28,11 +29,17 @@ var _self = this
             requestPage(e.currentTarget) && e.stop();
         });
         _w.onpopstate = popState;
+        initPage();
+        /*
         onResize();
         $.on(_w,"resize",function(e){onResize(e);});
         setVisitedLinks();
         $.remClass(_$('#Site'),"loading");
+        */
     };
+    var initPage = function() {
+        $.svgload('/img/icons.svg');
+    }
     var onResize = function(e)
     {
         var owidth = vp.width;
@@ -76,6 +83,8 @@ var _self = this
     /* THE AJAX/HISTORY STUFF */
     var popState = function(event)
     {
+        if (!event.state)
+            return;
         bUpdateURL = false;
         oPageInfo.title = event.state.title;
         oPageInfo.url = event.state.url;
@@ -84,9 +93,11 @@ var _self = this
     var requestPage = function(link) {
          if (link.host != _w.location.host)
             return false; //default
-         if (link.pathname == _w.location.pathname)
-            return true; //do nothing
-
+         if (getFilePathExtension(link.pathname) != "")
+            return false; //default
+         if (link.pathname == _w.location.pathname) {
+           return !(link.href.indexOf('#') !== -1);
+         }
          bUpdateURL = true;
          getPage(link.href);
          return true;
@@ -96,7 +107,6 @@ var _self = this
         $.ajaxGet(oPageInfo.url+"?json",{error:pageError,success:pageLoad});
     }
     var pageError = function(xhr) {
-        //alert("XHR Error "+xhr.status+" "+xhr.statusText);
         _w.location.assign(oPageInfo.url);
     }
     var pageLoad = function(xhr) {
@@ -106,7 +116,25 @@ var _self = this
          history.pushState(oPageInfo, oPageInfo.title, oPageInfo.url);
          bUpdateURL = false;
        }
+       _$('#pageContent').innerHTML = data.content;
+       _$('#pageHeader').innerHTML = data.header;
+       _$('#pageNav').innerHTML = data.nav;
+       _$('#pageCSS').innerHTML = data.css;
+       _$('#siteMenu').innerHTML = data.menu;
+       initPage();
+       console.log(_w.location.hash)
+       var hash = _w.location.hash,
+       top = 0;
+       if (hash.length > 1) {
+        var el = _$(hash);
+        if (el)
+            top = getOffset(el).top;
+       }
+       _html.scrollTop = top;
+       _body.scrollTop = top;
 
+
+       /*
        $.addClass(_$('#Site'),"loading");
 
        _$('#SCC').innerHTML = data.content;
@@ -127,8 +155,10 @@ var _self = this
               loadJS(data.scripts[i]);
            }
          }
+       */
      }
 
+    /*
     function loadJS(src) {
       $.remove(_$$("script[ajax]"));
 
@@ -139,6 +169,7 @@ var _self = this
 	_body.appendChild(script);
 	return script;
     }
+    */
 /*feature tests*/
     function testLocalStorage()
     {
@@ -151,5 +182,17 @@ var _self = this
         return false;
       }
     };
+    function getFilePathExtension(path) {
+	  var filename = path.split('\\').pop().split('/').pop();
+	  var lastIndex = filename.lastIndexOf(".");
+	  if (lastIndex < 1)
+        return "";
+	  return filename.substr(lastIndex + 1);
+    };
+    function getOffset(oNode) {
+      var nLeft = 0, nTop = 0;
+      for (var oItNode = oNode; oItNode; nLeft += oItNode.offsetLeft, nTop += oItNode.offsetTop, oItNode = oItNode.offsetParent);
+      return {left:nLeft,top:nTop};
+   }
 $.docReady(ready);
 }));

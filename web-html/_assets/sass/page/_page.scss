@@ -54,6 +54,7 @@ $xcolors: getColors($brand);
   background-position: center center;
   background-size: cover;
   //opacity:.1;
+  transform: translateZ(0);
   will-change: transform; // creates a new paint layer
 }
 .pageWrapper {

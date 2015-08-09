@@ -19,11 +19,11 @@ init page async
     c.push("no-ie");
 
   c.push((((m.flexbox || m.flexboxlegacy ||m.flexboxtweener) && m.flexwrap)?"":"no-")+"flex");
-  c.push(((m.inlinesvg && 'XMLHttpRequest' in w)?"":"no-")+"svg");
+  //c.push(((m.inlinesvg && 'XMLHttpRequest' in w)?"":"no-")+"svg");
   c.push((isModernBrowser()?"":"no-")+"modern");
 
   d.documentElement.className =  "js "+c.join(" ");
-
+  window._isModernBroweser = isModernBrowser;
   WebFont.load({
     classes: false,
     custom: {
@@ -34,7 +34,7 @@ init page async
   });
  function isModernBrowser()
  {
-    return (m.json && m.history && 'XMLHttpRequest' in w && m.queryselector && m.es5array);
+    return (m.json && m.history && 'XMLHttpRequest' in w && m.inlinesvg && m.queryselector && m.es5array);
  }
 
 })(this,this.document);

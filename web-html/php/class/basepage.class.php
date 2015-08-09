@@ -53,22 +53,31 @@ class BasePage extends _registry
     public function getHtml()   {return $this->html;}
     public function getMenu()   {return $this->menu;}
     public function getBackground()   {return $this->background;}
-    public function getBackgroundCSS() {
-        if ($this->background === null)
-            return "";
-        $css = ".pageContainer:before {";
-        if ($this->background === false)
-        {
+    public function getCSS()
+    {
+        $css="";
+        if ($this->background !== null) {
+          $css = ".pageContainer:before {";
+          if ($this->background === false)
+          {
             $css .="background-image: none;";
-        }
-        else
-        {
+          }
+          else
+          {
             $css .="background-image: -webkit-linear-gradient(rgba(250, 250, 255, 0.9), rgba(250, 250, 255, 0.9)), url('".$this->background."');";
             $css .="background-image: linear-gradient(rgba(250, 250, 255, 0.9), rgba(250, 250, 255, 0.9)), url('".$this->background."');";
+          }
+          $css .= "}";
         }
-        $css .= "}";
+        if (empty($this->menu)) {
+            $css .= ".pageWrapper-nav {display:none}";
+        }
+
+        if (!empty($css))
+            $css = "<style type='text/css'>".$css."</style>";
         return $css;
     }
+
     public function getData($idx)
     {
         return $this->offsetGet($idx);

@@ -1,4 +1,4 @@
-<script type="json">{"isArticle":true,"title":"Chapter 6: Example Application","short":"Example Application","menuOrder":500,"layout":"article","htmlmin":true,"ctime":"2015-07-27T18:10:59.947Z","mtime":"2015-07-27T18:10:59.947Z"}</script>
+<script type="json">{"isArticle":true,"title":"Chapter 6: Example Application","short":"Example Application","menuOrder":500,"layout":"article","htmlmin":true,"ctime":"2015-08-09T14:49:08.973Z","mtime":"2015-08-09T14:49:08.973Z"}</script>
 <h2 id="declarative-coding">Declarative coding</h2>
 <p>We are going to switch our mindset. From here on out, we&#39;ll stop telling the computer how to do its job and instead write a specification of what we&#39;d like as a result. I&#39;m sure you&#39;ll find it much less stressful than trying to micromanage everything all the time.</p>
 <p>Declarative, as opposed to imperative, means that we will write expressions, as opposed to step by step instructions.</p>
@@ -93,7 +93,7 @@
 app(<span class="hljs-string">"cats"</span>);
 </code></pre>
 <p>This calls our <code>url</code> function, then passes the string to our <code>getJSON</code> function, which has been partially applied with <code>trace</code>. Loading the app will show the response from the api call in the console.</p>
-<p><img src="//fahrzeuge/images/console_ss.png"/></p>
+<p><img src="/fahrzeuge/images/console_ss.png"/></p>
 <p>We&#39;d like to construct images out of this json. It looks like the srcs are buried in <code>items</code> then each <code>media</code>&#39;s <code>m</code> property.</p>
 <p>Anyhow, to get at these nested properties we can use a nice universal getter function from ramda called <code>_.prop()</code>. Here&#39;s a homegrown version so you can see what&#39;s happening:</p>
 <pre class="highlight"><code class="hljs javascript"><span class="hljs-keyword">var</span> prop = _.curry(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(property, object)</span></span>{
@@ -121,7 +121,7 @@ app(<span class="hljs-string">"cats"</span>);
 <span class="hljs-keyword">var</span> app = _.compose(Impure.getJSON(renderImages), url);
 </code></pre>
 <p>And we&#39;re done!</p>
-<p><img src="//fahrzeuge/images/cats_ss.png" /></p>
+<p><img src="/fahrzeuge/images/cats_ss.png" /></p>
 <p>Here is the finished script:</p>
 <pre class="highlight"><code class="hljs javascript">requirejs.config({
   paths: {

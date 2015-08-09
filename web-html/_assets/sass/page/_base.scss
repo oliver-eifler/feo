@@ -23,6 +23,15 @@ body { -webkit-animation: bugfix infinite 1s; }
     }
 
 }
+svg {
+  display:none;
+}
+.svg svg {
+  display:inline;
+}
+.svg svg + em {
+  display:none;
+}
 
 a {
   color:$primary-color;

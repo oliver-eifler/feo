@@ -135,7 +135,7 @@ app("cats");
 
 This calls our `url` function, then passes the string to our `getJSON` function, which has been partially applied with `trace`. Loading the app will show the response from the api call in the console.
 
-<img src="//fahrzeuge/images/console_ss.png"/>
+<img src="/fahrzeuge/images/console_ss.png"/>
 
 We'd like to construct images out of this json. It looks like the srcs are buried in `items` then each `media`'s `m` property.
 
@@ -182,7 +182,7 @@ var app = _.compose(Impure.getJSON(renderImages), url);
 
 And we're done!
 
-<img src="//fahrzeuge/images/cats_ss.png" />
+<img src="/fahrzeuge/images/cats_ss.png" />
 
 Here is the finished script:
 ```js

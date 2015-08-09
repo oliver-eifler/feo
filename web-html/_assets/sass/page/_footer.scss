@@ -43,4 +43,12 @@ $colors: getColors($brand);
     color:info($colors);
     text-align:right;
   }
+  .olli-avatar {
+    vertical-align:bottom;
+    width:1.5em;
+    height:1.5em;
+    margin-right:.5em;
+    fill: extra($colors);
+  }
+
 }

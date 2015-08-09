@@ -4,7 +4,7 @@
   "authors": [
     "Oliver Jean Eifler <olli.eifler@gmail.com>"
   ],
-  "description": "F�rderverein Pro Eisenbahn im Oderbruch e.V.",
+  "description": "Förderverein Pro Eisenbahn im Oderbruch e.V.",
   "license": "MIT",
   "homepage": "www.feo.dd",
   "private": true,
@@ -16,7 +16,8 @@
     "tests"
   ],
   "devDependencies": {
-    "include-media": "~1.4.1",
-    "webfontloader": "~1.6.4"
-  },
+    "include-media": "include-media#latest",
+    "webfontloader": "webfontloader#latest",
+    "svg4everybody": "svg4everybody#latest"
+  }
 }
