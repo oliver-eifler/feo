@@ -1,8 +1,6 @@
 /* THE FINAl APP */
 (function (root, ns, factory) {
-    var lib = _namespace(root,ns);
-    var app = _namespace(lib,"theAPP");
-    factory.call(root,lib);
+    factory.call(root,Objectifier.get(ns));
 }(this,olli_name,function ($,undefined) {
 var _self = this
     ,oPageInfo = {title:null,url:null}
@@ -38,7 +36,6 @@ var _self = this
         */
     };
     var initPage = function() {
-        $.svgload('/img/icons.svg');
     }
     var onResize = function(e)
     {
@@ -122,7 +119,6 @@ var _self = this
        _$('#pageCSS').innerHTML = data.css;
        _$('#siteMenu').innerHTML = data.menu;
        initPage();
-       console.log(_w.location.hash)
        var hash = _w.location.hash,
        top = 0;
        if (hash.length > 1) {

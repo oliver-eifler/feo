@@ -10,10 +10,7 @@
  *
  * Init Olli Library ;)
  */
-(function (root, ns, factory) {
-    var lib = _namespace(root,ns);
-    lib.extend(factory(lib));
-}(this,olli_name,function (_lib,undefined) {
+Objectifier.register(olli_name,function(_lib,undefined) {
 
 var _self = this
     ,ver={maj:0,min:1,build:1}
@@ -156,11 +153,6 @@ var _self = this
     return null;
   }
 
-
-
-
-
-
 var exp = {
   namespace: olli_name
   ,version: ver
@@ -176,7 +168,7 @@ var exp = {
   ,getCSS:getCSS
 }
 return exp;
-}));
+});
 /*
 (function (root, ns, factory) {
     var lib = _namespace(root,olli_name);

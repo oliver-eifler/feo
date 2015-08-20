@@ -28,4 +28,18 @@ function path2cmd($path,&$cmd)
     }
   return $rc;
 }
+function autoversion($path)
+{
+    if (file_exists($path))
+    {
+          $parts = pathinfo($path);
+          if (!isset($parts["filename"])) {
+            $parts["filename"] = substr($parts["basename"],0,strlen($parts["basename"]) - (isset($parts['extension'])?(strlen($parts["extension"]) + 1):0) );
+          }
+          $dir = ($parts["dirname"]=="."?"":$parts["dirname"]."/");
+          $ver = filemtime($path);
+          return $dir.$parts["filename"]."_".$ver.".".$parts["extension"];
+    }
+    return false;
+}
 ?>

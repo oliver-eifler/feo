@@ -223,26 +223,29 @@ function PageAds()
 }
 function css($path)
 {
-  $file = $path.".css";
-  if ($path=="" || !file_exists($file))
+  $file = autoversion($path.".css");
+  if ($file === false)
      return "";
-  $update = filemtime($file);
-  return "<link rel='stylesheet' type='text/css' href='/".$path."_".$update.".css'>";
+  return "<link rel='stylesheet' type='text/css' href='/".$file."'>";
 }
 function js($path)
 {
-  $file = $path.".js";
-  if ($path=="" || !file_exists($file))
+  $file = autoversion($path.".js");
+  if ($file === false)
      return "";
-  $update = filemtime($file);
-  return "<script src='/".$path."_".$update.".js'></script>";
+  return "<script src='/".$file."'></script>";
 }
 function PreLoad()
 {
   $html = "";
   $html.= css('css/styles');
 
-  $page = Page::getInstance();
+  /* config for js*/
+  $svg = autoversion("img/icons.svg");
+
+  $html.= "<script>_cfg={";
+  $html.= "svgfile:".($svg === false?"false":"'".$svg."'");
+  $html.= "};</script>";
   /* bootstrap scripts */
   $html.= js('_assets/js/components/html5shiv');
   $html.= js('_assets/js/components/webfontloader');
@@ -313,6 +316,8 @@ function HTMLBody()
 
   $html = "<body>";
   $html.= "<div id='pageCSS'>".$page->getCSS()."</div>";
+  //$html.= file_get_contents("img/icons.svg");
+
   $html.= "<header class='headerContainer'>";
   $html.=   SiteHeader();
   $html.= "</header>";
@@ -339,7 +344,7 @@ function HTMLBody()
   $html.= js('_assets/js/olli/olli.docready');
   $html.= js('_assets/js/olli/olli.classie');
   $html.= js('_assets/js/olli/olli.ajax');
-  $html.= js('_assets/js/olli/olli.svgload');
+  //$html.= js('_assets/js/olli/olli.svgload');
 
   $html.= js('_assets/js/app');
 
