@@ -15,6 +15,7 @@ class BasePage extends _registry
         $this->error = $err;
         $this->build = false;
         $this->modified = time();
+        $this->dynamic = false;
         foreach ($data as $k => $v)
           $this->offsetSet($k,$v);
         if (!$this->error)

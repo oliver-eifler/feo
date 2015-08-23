@@ -1,14 +1,23 @@
 /* THE FINAl APP */
+/*
 (function (root, ns, factory) {
     factory.call(root,Objectifier.get(ns));
 }(this,olli_name,function ($,undefined) {
+*/
+( function($,undefined) {
+
 var _self = this
     ,oPageInfo = {title:null,url:null}
     ,bIsLoading = false
     ,bUpdateURL = false
     ,support = {localStorage:testLocalStorage()}
     ,vp = {width:0,minWidth:0}
-    ,resize_ticking = false;
+    ,old_pad = 0
+    ,resize_ticking = false
+    ,$EVENT = $.event
+    /*Elements*/
+    ,section$
+    ;
     /*
     var breakpoint = {};
     breakpoint.refreshValue = function () {
@@ -21,19 +30,32 @@ var _self = this
 
     var ready = function()
     {
+        console.log(_self);
         oPageInfo.title = _doc.title;
         oPageInfo.url = _w.location;
-        $.on(_body,'click.ajax','a',function(e){
+        /* Elements */
+        section$ = _$$(".headerContainer,.menuContainer,.pageContainer,.footerContainer");
+
+        vp = $.getViewport();
+        resize();
+
+        $EVENT.on(_w,"resize",onResize.bind(_self));
+        $EVENT.on(_body,'click.ajax','a',function(e){
             requestPage(e.currentTarget) && e.stop();
         });
+        var transEndEventNames = {
+          "WebkitTransition" : "webkitTransitionEnd",
+          "MozTransition"    : "transitionend",
+          "OTransition"      : "oTransitionEnd",
+          "msTransition"     : "MSTransitionEnd",
+          "transition"       : "transitionend"
+        },
+        transEndEventName = transEndEventNames[ Modernizr.prefixed('transition') ];
+        $EVENT.on(_$("#fs"),transEndEventName, onResize.bind(_self));
+
         _w.onpopstate = popState;
         initPage();
-        /*
-        onResize();
-        $.on(_w,"resize",function(e){onResize(e);});
-        setVisitedLinks();
-        $.remClass(_$('#Site'),"loading");
-        */
+
     };
     var initPage = function() {
     }
@@ -41,18 +63,21 @@ var _self = this
     {
         var owidth = vp.width;
         vp = $.getViewport();
-        if (owidth != vp.width)
-        {
-          if (!resize_ticking)
+        if (!resize_ticking)
             requestAnimationFrame(resize);
           resize_ticking = true;
-        }
     }
     var resize = function()
     {
-        breakpoint.refreshValue();
-        console.log(breakpoint.value);
-        $.setCSS(_body,"max-width",""+(vp.minWidth) +"px");
+
+        var pad = 0;
+        if (vp.width == vp.maxWidth)
+            pad = (vp.maxWidth - vp.minWidth);
+        if (old_pad != pad)
+        {
+          old_pad = pad;
+          section$.forEach(function(node){$.setCSS(node,"padding-right",""+(pad) +"px");})
+        }
         resize_ticking = false;
     }
     var setVisitedLinks = function()
@@ -118,7 +143,6 @@ var _self = this
        _$('#pageNav').innerHTML = data.nav;
        _$('#pageCSS').innerHTML = data.css;
        _$('#siteMenu').innerHTML = data.menu;
-       initPage();
        var hash = _w.location.hash,
        top = 0;
        if (hash.length > 1) {
@@ -128,7 +152,8 @@ var _self = this
        }
        _html.scrollTop = top;
        _body.scrollTop = top;
-
+        vp = $.getViewport();
+        resize();
 
        /*
        $.addClass(_$('#Site'),"loading");
@@ -190,5 +215,8 @@ var _self = this
       for (var oItNode = oNode; oItNode; nLeft += oItNode.offsetLeft, nTop += oItNode.offsetTop, oItNode = oItNode.offsetParent);
       return {left:nLeft,top:nTop};
    }
+
 $.docReady(ready);
-}));
+/*}));*/
+})(Objectifier.get(olli_name));
+

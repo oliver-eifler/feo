@@ -20,10 +20,7 @@
   * https://github.com/fat/bean
   * MIT license
   */
-(function (root, ns, factory) {
-    var lib = _namespace(root,ns);
-    lib.extend(factory(lib));
-}(this,olli_name,function (_lib,undefined) {
+Objectifier.register(olli_name+".event",function(_lib,undefined) {
   var _self = this
     ,win            = window
     //, old            = context[name]
@@ -187,6 +184,7 @@
               event = event || ((element.ownerDocument || element.document || element).parentWindow || win).event
               this.originalEvent = event
               this.isNative       = isNative
+              this.element        = element
               this.isBean         = true
 
               if (!event) return
@@ -746,4 +744,4 @@
   setSelectorEngine()
 
   return exp;
-}));
+});

@@ -21,7 +21,6 @@ $xcolors: getColors($brand);
 .pageContainer {
   background-color:base($colors);
   color:text($colors);
-
   font-size:px2em($base-font-size);
   line-height:$base-line-height/$base-font-size;
   overflow:hidden;
@@ -31,13 +30,9 @@ $xcolors: getColors($brand);
     color:hilight($colors);
   }
     @include setColors($colors);
-
-
-
-
-}
+ }
 .pageContainer:before {
-  content:' ';
+  content:'';
   position:fixed;
   z-index:1;
   top:0;

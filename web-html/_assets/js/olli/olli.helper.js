@@ -12,10 +12,7 @@
  @include('olli.base')
  @include('olli.lib')
  */
-(function (root, ns, factory) {
-    var lib = _namespace(root,ns);
-    lib.extend(factory(lib));
-}(this,olli_name,function (_lib,undefined) {
+Objectifier.register(olli_name,function(_lib,undefined) {
 
 var _self = this;
 var getScrollbarSize = function()
@@ -108,4 +105,4 @@ var exp = {
     ,getViewport: getViewport
 }
 return exp;
-}));
+});

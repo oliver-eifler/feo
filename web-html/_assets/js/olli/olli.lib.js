@@ -150,12 +150,9 @@ var _self = this
     style = domToCSS(style);
     var s = _w.getComputedStyle(el, '');
     return (s?(s.getPropertyValue(style)||s.getPropertyValue(prefix.css+style)):null);
-    return null;
   }
-
 var exp = {
-  namespace: olli_name
-  ,version: ver
+   version: ver
   ,pad: pad
   ,getVersion: function() {return ""+ver.maj+"."+ver.min+"."+pad(ver.build,4);}
   ,fn: domwrap

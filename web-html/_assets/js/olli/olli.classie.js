@@ -12,13 +12,8 @@
  @include('olli.base')
  @include('olli.lib')
  */
-(function (root, ns, factory) {
-    var lib = _namespace(root,ns);
-    lib.extend(factory(lib));
-}(this,olli_name,function (_lib,undefined) {
+Objectifier.register(olli_name,function(_lib,undefined) {
 var _self = this
-'use strict';
-
 // class helper functions from bonzo https://github.com/ded/bonzo
 
 function classReg( className ) {
@@ -66,4 +61,4 @@ var exp = {
     ,toggleClass: _lib.fn.bind(_lib,toggleClass)
 }
 return exp;
-}));
+});

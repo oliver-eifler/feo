@@ -11,26 +11,7 @@
  * Utilitie functions used by all olli plugins ;)
  */
 var olli_name = 'olli';
-function _namespace( ns, ns_string ) {
-   if (ns_string===undefined)
-        ns_string = olli_name;
 
-    var parts = ns_string.split('.'),
-        parent = ns,
-        pl, i,name=(typeof ns.namespace==='string')?ns.namespace+".":"";
-
-    pl = parts.length;
-    for (i = 0; i < pl; i++) {
-        //create a property if it doesnt exist
-        name = name + (!i?"":".")+parts[i];
-        if (typeof parent[parts[i]] == 'undefined') {
-            parent[parts[i]] = {namespace:name};
-        }
-
-        parent = parent[parts[i]];
-    }
-    return parent;
-};
 function _$ (selector, el) {
      if (!el) {el = document;}
      return el.querySelector(selector);
@@ -121,7 +102,7 @@ var Objectifier = (function() {
         register: function(name,factory,context) {
           var root = context || window
               ,obj = this.get(name,true,root);
-          obj.classname = obj.classname || name; 
+          obj.namespace = obj.namespace || name;
           return extendifier(obj,factory.call(root,obj));
         }
 	};

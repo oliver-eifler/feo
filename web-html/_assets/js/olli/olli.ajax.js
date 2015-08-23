@@ -12,10 +12,7 @@
  @include('olli.base')
  @include('olli.lib')
  */
-(function (root, ns, factory) {
-    var lib = _namespace(root,ns);
-    lib.extend(factory(lib));
-}(this,olli_name,function (_lib,undefined) {
+Objectifier.register(olli_name,function(_lib,undefined) {
 
 var _self = this
 ,noop = function(){}
@@ -26,7 +23,7 @@ var ajax = function(type,url,options)
     type = (typeof type === 'string' && !_isBlank(type) )?type:'GET';
     var opt = _extend(defaults,options)
     ,xhr = new XMLHttpRequest();
-
+    console.log("ajax-this: ",this);
     xhr.open("GET", url, opt.async);
     xhr.onerror = xhr.ontimeout = function() {opt.error(xhr);}
     xhr.onreadystatechange = function(e) {
@@ -51,4 +48,4 @@ var exp = {
     ,ajaxGet: function(u,o) {return ajax('GET',u,o);}
 }
 return exp;
-}));
+});

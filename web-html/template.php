@@ -8,6 +8,7 @@
 normalized uri /dir[/dir..]/command
 */
 /* Router TEST */
+session_cache_limiter("public"); //This stop php’s default no-cache
 require_once('php/page.php');
 require_once('php/mainmenu.php');
   if (isset($_GET['json']) || ( isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' ))
@@ -23,9 +24,14 @@ function sendJSONPage()
 {
   $page = Page::getInstance();
   $error = $page->getError();
+  if ($error) {
+    header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");
+    exit();
+  }
   $json = array();
-  $json['error']    = $error;
-  if (!$error) {
+  if (sendHeaders())
+  {
+    $json['error']    = $error;
     $json['title']    = $page->getPreparedTitle();
     $json['content']  = getPageContent();
     $json['header']   = getPageHeader();
@@ -33,10 +39,6 @@ function sendJSONPage()
     $json['css']      = $page->getCSS();
     $json['menu']     = getSiteMenu();
   }
-  else {
-    header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");
-  }
-
   header("Content-type: application/json; charset=utf-8");
   echo json_encode($json);
 }
@@ -45,21 +47,36 @@ function sendHTMLPage()
 {
   $menu = MainMenu::getInstance();
   $page = Page::getInstance();
-  header("Content-Type: text/html; charset=utf-8");
-  header("X-UA-Compatible: IE=edge");
-  header("X-Powered-By: Olli PHP Framework");
   if ($page->getError())
   {
     header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");
     error_page();
     exit();
   }
-  $modified = max($page->getData('modified'),filemtime('template.php'));
+  header("Content-Type: text/html; charset=utf-8");
+  if (sendHeaders())
+    echo HTML();
+}
+function sendHeaders()
+{
+  $page = Page::getInstance();
   $status = 200;
-  //if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $modified)
-  //  $status = 304;
-  header ("Last-Modified: ".gmdate("D, d M Y H:i:s", $modified )." GMT",true,$status);
-  echo HTML();
+  header("X-UA-Compatible: IE=edge");
+  if ($page->dynamic === false)
+  {
+    $modified = max($page->getData('modified'),filemtime('template.php'));
+    if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $modified)
+       $status = 304;
+    header("Last-Modified: ".gmdate("D, d M Y H:i:s", $modified )." GMT",true,$status);
+    header("Cache-Control: public",true);
+  }
+  else
+  {
+    header("Cache-Control: no-cache, must-revalidate",true);
+    header("Expires: 0",true);
+  }
+  header("X-Powered-By: Olli PHP Framework");
+  return ($status==200);
 }
 function SiteHeader()
 {
@@ -216,7 +233,7 @@ function PageAds()
   }
 
   $html.= "</ul></div>";
-  $html.="<h3>Debug Data</h3>".$page->debugData();
+  //$html.="<h3>Debug Data</h3>".$page->debugData();
   $html.= "</aside>";
 
   return $html;
@@ -316,9 +333,9 @@ function HTMLBody()
 
   $html = "<body>";
   $html.= "<div id='pageCSS'>".$page->getCSS()."</div>";
+  $html.= "<div id='fs'></div>";
   //$html.= file_get_contents("img/icons.svg");
-
-  $html.= "<header class='headerContainer'>";
+  $html.= "<header class='headerContainer' >";
   $html.=   SiteHeader();
   $html.= "</header>";
   $html.= "<nav class='menuContainer'>";
@@ -342,9 +359,11 @@ function HTMLBody()
   $html.= js('_assets/js/olli/olli.polyfills');
   $html.= js('_assets/js/olli/olli.events');
   $html.= js('_assets/js/olli/olli.docready');
+  $html.= js('_assets/js/olli/olli.helper');
   $html.= js('_assets/js/olli/olli.classie');
   $html.= js('_assets/js/olli/olli.ajax');
   //$html.= js('_assets/js/olli/olli.svgload');
+  $html.= js('_assets/js/olli/modules/element');
 
   $html.= js('_assets/js/app');
 
