@@ -373,7 +373,7 @@ function HTML()
 {
   $html = "<!DOCTYPE HTML>";
   $html.= "<!--[if lte IE 8]><html lang='de' class='no-cbh'><![endif]-->";
-  $html.= "<!--[if gte IE 9]>--><html  lang='de'><!--<![endif]-->";
+  $html.= "<!--[if gte IE 9]><!--><html  lang='de'><!--<![endif]-->";
    //$html.= "<html  lang='de'>";
   $html.= HTMLHeader();
   $html.= HTMLBody();
